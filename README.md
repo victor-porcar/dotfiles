@@ -117,6 +117,7 @@ git/gitconfig              -> ~/.gitconfig
 git/ignore                 -> ~/.config/git/ignore (global gitignore)
 vim/vimrc                  -> ~/.vimrc
 editorconfig/editorconfig  -> ~/.editorconfig
+bash/bashrc.local.example  copied (not linked) to ~/.bashrc.local if missing
 java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
 packages/apt.txt           system packages
@@ -125,6 +126,8 @@ packages/apt.txt           system packages
 ## Local customization (not versioned)
 
 - `~/.bashrc.local`: aliases, variables or secrets specific to that machine.
+  Created by `./install.sh link` from `bash/bashrc.local.example` (with commented
+  examples) if it does not exist yet.
 - `~/.gitconfig.local`: git identity (and anything you want to override).
 
 Note: since `~/.gitconfig` is a symlink into the repo, `git config --global ...` edits

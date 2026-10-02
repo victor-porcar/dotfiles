@@ -6,5 +6,6 @@ link_dotfiles() {
   link_file git/ignore                "$HOME/.config/git/ignore"
   link_file vim/vimrc                 "$HOME/.vimrc"
   link_file editorconfig/editorconfig "$HOME/.editorconfig"
-  copy_if_missing java/maven/settings.xml "$HOME/.m2/settings.xml"
+  copy_if_missing bash/bashrc.local.example "$HOME/.bashrc.local"
+  copy_if_missing java/maven/settings.xml   "$HOME/.m2/settings.xml"
 }

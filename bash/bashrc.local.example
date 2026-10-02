@@ -1,0 +1,9 @@
+# ~/.bashrc.local: settings for THIS machine only. Not versioned, never pushed.
+# Created from dotfiles/bash/bashrc.local.example; edit freely.
+#
+# Examples:
+# export HTTPS_PROXY=http://proxy.company.com:8080
+# export NO_PROXY=localhost,127.0.0.1,.company.com
+# export NEXUS_TOKEN=...
+# alias vpn='sudo openconnect vpn.company.com'
+# alias work='cd ~/work'
