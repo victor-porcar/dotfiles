@@ -31,6 +31,80 @@ The script is **idempotent**: running it several times breaks nothing.
 
 If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>/`.
 
+## What's included
+
+### Bash
+
+**General aliases** (`bash/aliases.sh`)
+
+| Alias      | Does                                         |
+|------------|----------------------------------------------|
+| `ll` / `la`| `ls -lh` / `ls -lhA` (includes hidden files) |
+| `..` / `...` | go up 1 / 2 directories                    |
+| `cp`, `mv` | ask before overwriting                       |
+| `df`, `du` | human-readable sizes                         |
+| `g`        | `git`                                        |
+| `gs`       | `git status -sb` (compact status)            |
+| `gl`       | `git lg` (graph log)                         |
+| `reload`   | reload `~/.bashrc`                           |
+| `dotfiles` | `cd` into this repo                          |
+
+**Java aliases** (`bash/java.sh`), plus SDKMAN loaded (`sdk` to switch JDKs)
+
+| Alias     | Does                                              |
+|-----------|---------------------------------------------------|
+| `mci`     | `mvn clean install`                               |
+| `mcis`    | `mvn clean install -DskipTests`                   |
+| `mdt`     | `mvn dependency:tree`                             |
+| `mdu`     | dependencies with newer versions available        |
+| `mw` / `gw` | `./mvnw` / `./gradlew` (project wrappers)       |
+
+**Functions** (`bash/functions.sh`)
+
+- `mkcd dir`: create a directory and `cd` into it.
+- `port 8080`: show which process is using a port.
+- `extract file`: unpack `.tar.gz`, `.tar.xz`, `.zip`, `.jar`, `.gz`...
+
+**History** (`bash/history.sh`): 50,000 entries with timestamps, no duplicates,
+commands starting with a space are not saved, shared across open terminals.
+
+**Shell options** (`bash/options.sh`): `autocd` (type a directory name to enter it),
+`cdspell` (fixes small typos in `cd`), `globstar` (`**/*.java` is recursive),
+bash-completion enabled.
+
+**Prompt** (`bash/prompt.sh`): `user@host:~/project (main *)$`, showing the git branch,
+`*` for uncommitted changes and whether you are ahead/behind the remote.
+
+**Readline** (`bash/inputrc`): case-insensitive completion; up/down arrows search
+history for what you've already typed (type `mvn` + ↑).
+
+### Git (`git/gitconfig`)
+
+- **Aliases**: `st`, `sw` (switch), `br`, `ci`, `amend` (add to last commit, keep
+  message), `unstage`, `last` (last commit with files), `lg` (colored graph log).
+- `pull` rebases instead of merging; `push` creates the remote branch automatically;
+  `fetch` prunes deleted remote branches; `rebase` auto-stashes local changes.
+- Better diffs and conflicts (`histogram`, `zdiff3`); `rerere` remembers conflict
+  resolutions.
+- Default branch `main`, LF line endings.
+- **Global gitignore** (`git/ignore`): IntelliJ, VS Code, Eclipse and OS files.
+
+### Editors
+
+- **vim**: line numbers, smart search, 4-space indentation, mouse support.
+- **editorconfig**: UTF-8, LF, 4 spaces (2 for YAML/JSON/XML), trims trailing
+  whitespace. Used by IntelliJ and VS Code in projects without their own.
+
+### Tools installed
+
+- **apt**: git, curl, wget, zip/unzip, build-essential, vim, tree, `jq`, `htop`,
+  `ripgrep` (`rg`), `fd-find` (`fdfind`), bash-completion.
+- **SDKMAN**: JDK (Temurin), Maven, Gradle.
+
+### Templates
+
+- `~/.m2/settings.xml`: skeleton for corporate Nexus/Artifactory servers and mirrors.
+
 ## Layout
 
 ```
