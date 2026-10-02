@@ -1,6 +1,6 @@
 # candidate [version]
 # Without a version, SDKMAN installs its recommended one.
 # To pin one: run `sdk list java` and copy the identifier, e.g. "java 21.0.8-tem"
-java
+java 21.0.12+1.1-tem
 maven
 gradle

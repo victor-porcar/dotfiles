@@ -64,6 +64,8 @@ If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>
 - `mkcd dir`: create a directory and `cd` into it.
 - `port 8080`: show which process is using a port.
 - `extract file`: unpack `.tar.gz`, `.tar.xz`, `.zip`, `.jar`, `.gz`...
+- `path_prepend dir` / `path_append dir`: add to `PATH` only if the dir exists and is not
+  already there (handy in `~/.bashrc.local`).
 
 **History** (`bash/history.sh`): 50,000 entries with timestamps, no duplicates,
 commands starting with a space are not saved, shared across open terminals.
@@ -99,7 +101,7 @@ history for what you've already typed (type `mvn` + ↑).
 
 - **apt**: git, curl, wget, zip/unzip, build-essential, vim, tree, `jq`, `htop`,
   `ripgrep` (`rg`), `fd-find` (`fdfind`), bash-completion.
-- **SDKMAN**: JDK (Temurin), Maven, Gradle.
+- **SDKMAN**: JDK 21 (Temurin), Maven, Gradle.
 
 ### Templates
 

@@ -6,4 +6,5 @@
 # export NO_PROXY=localhost,127.0.0.1,.company.com
 # export NEXUS_TOKEN=...
 # alias vpn='sudo openconnect vpn.company.com'
+# path_append /opt/some-tool/bin
 # alias work='cd ~/work'
