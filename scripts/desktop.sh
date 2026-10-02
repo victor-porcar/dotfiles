@@ -14,15 +14,20 @@ install_gnome_extensions() {
   done
 }
 
-# GNOME Shell downloads the version matching itself and shows a confirmation dialog
+extension_installed() {
+  gnome-extensions info "$1" >/dev/null 2>&1
+}
+
+# GNOME Shell downloads the version matching itself and shows a confirmation dialog.
+# Its D-Bus reply is unreliable, so the result is checked afterwards.
 install_gnome_extension() {
-  local uuid="$1" result
-  if gnome-extensions info "$uuid" >/dev/null 2>&1; then ok "$uuid: already installed"; return; fi
-  result="$(gdbus call --session --timeout 300 --dest org.gnome.Shell.Extensions \
+  local uuid="$1"
+  if extension_installed "$uuid"; then ok "$uuid: already installed"; return; fi
+  gdbus call --session --timeout 300 --dest org.gnome.Shell.Extensions \
     --object-path /org/gnome/Shell/Extensions \
-    --method org.gnome.Shell.Extensions.InstallRemoteExtension "$uuid" 2>&1)"
-  if [[ "$result" == *successful* ]]; then ok "$uuid: installed"; return; fi
-  warn "$uuid: not installed ($result)"
+    --method org.gnome.Shell.Extensions.InstallRemoteExtension "$uuid" >/dev/null 2>&1 || true
+  if extension_installed "$uuid"; then ok "$uuid: installed"; return; fi
+  warn "$uuid: not installed (cancelled or not available for this GNOME version)"
 }
 
 set_wallpaper() {
