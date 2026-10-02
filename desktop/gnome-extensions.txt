@@ -1,0 +1,3 @@
+# GNOME Shell extension UUIDs, as shown on extensions.gnome.org
+# Vitals: CPU, memory, temperature and network in the top bar
+Vitals@CoreCoding.com

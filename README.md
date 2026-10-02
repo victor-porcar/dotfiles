@@ -32,6 +32,19 @@ The script is **idempotent**: running it several times breaks nothing.
 
 If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>/`.
 
+### Optional: desktop (`./install.sh desktop`)
+
+Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME session.
+
+- Installs the apt dependencies in `desktop/apt.txt`.
+- Installs the GNOME extensions listed in `desktop/gnome-extensions.txt` (UUIDs from
+  extensions.gnome.org). GNOME downloads the version matching itself and asks for
+  confirmation. Currently: [Vitals](https://github.com/corecoding/Vitals).
+- Sets the first image in `desktop/wallpapers/` as background (if any).
+- Loads GNOME settings from `desktop/dconf/*.conf`. The file name is the dconf path with
+  dots. To save an extension's settings:
+  `dconf dump /org/gnome/shell/extensions/vitals/ > desktop/dconf/org.gnome.shell.extensions.vitals.conf`
+
 ## What's included
 
 ### Bash
@@ -124,6 +137,7 @@ bash/bashrc.local.example  copied (not linked) to ~/.bashrc.local if missing
 java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
 packages/apt.txt           system packages
+desktop/                   optional GNOME setup: extensions, wallpapers, dconf settings
 ```
 
 ## Local customization (not versioned)

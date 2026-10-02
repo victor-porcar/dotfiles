@@ -3,7 +3,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for script in lib packages git link java home; do
+for script in lib packages git link java home desktop; do
   source "$DOTFILES_DIR/scripts/$script.sh"
 done
 
@@ -18,6 +18,9 @@ Steps:
   link      Symlink the dotfiles
   java      SDKMAN + JDK, Maven and Gradle
   home      Remove unwanted home dirs (Music, Videos) if empty
+
+Optional (not part of all):
+  desktop   GNOME extensions, wallpaper and dconf settings from desktop/
 EOF
 }
 
@@ -38,6 +41,7 @@ main() {
     link)     link_dotfiles ;;
     java)     install_java_toolchain ;;
     home)     clean_home ;;
+    desktop)  install_desktop ;;
     *)        usage ;;
   esac
 }
