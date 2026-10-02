@@ -89,7 +89,9 @@ commands starting with a space are not saved, shared across open terminals.
 bash-completion enabled.
 
 **Prompt** (`bash/prompt.sh`): `user@host:~/project (main *)$`, showing the git branch,
-`*` for uncommitted changes and whether you are ahead/behind the remote.
+`*` for uncommitted changes and whether you are ahead/behind the remote. In Mercurial
+repos it shows `(hg:branch|bookmark)`, read straight from `.hg/` to keep the prompt fast
+(so no dirty-state marker).
 
 **Readline** (`bash/inputrc`): case-insensitive completion; up/down arrows search
 history for what you've already typed (type `mvn` + ↑).
