@@ -1,0 +1,10 @@
+$include /etc/inputrc
+
+set completion-ignore-case on
+set show-all-if-ambiguous on
+set colored-stats on
+set mark-symlinked-directories on
+
+# Flechas arriba/abajo buscan en el historial lo que ya has empezado a escribir
+"\e[A": history-search-backward
+"\e[B": history-search-forward

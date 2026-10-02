@@ -1,0 +1,17 @@
+# Base
+build-essential
+ca-certificates
+curl
+wget
+zip
+unzip
+git
+bash-completion
+
+# Utilidades de terminal
+vim
+tree
+jq
+htop
+ripgrep
+fd-find

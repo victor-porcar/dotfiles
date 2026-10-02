@@ -1,0 +1,12 @@
+# ~/.bashrc -> enlace simbólico a dotfiles/bash/bashrc
+
+[[ $- != *i* ]] && return
+
+DOTFILES_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+
+for module in options exports history aliases functions prompt java; do
+  source "$DOTFILES_DIR/bash/$module.sh"
+done
+unset module
+
+[[ -f "$HOME/.bashrc.local" ]] && source "$HOME/.bashrc.local"
