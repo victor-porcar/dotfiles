@@ -6,12 +6,16 @@ Configuración personal de entorno de desarrollo Java sobre Linux (probado en Ub
 
 ```bash
 sudo apt-get install -y git
-git clone <url-de-este-repo> ~/dotfiles
+git clone https://github.com/victor-porcar/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh
 ```
 
 Después abre una terminal nueva (o `source ~/.bashrc`).
+
+Se clona por HTTPS porque en una máquina nueva aún no hay clave SSH. Para poder
+hacer push después, cambia el remoto:
+`git remote set-url origin git@github.com:victor-porcar/dotfiles.git`
 
 Se puede ejecutar un solo paso: `./install.sh packages | git | link | java`.
 El script es **idempotente**: lanzarlo varias veces no rompe nada.
