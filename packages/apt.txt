@@ -8,7 +8,7 @@ unzip
 git
 bash-completion
 
-# Utilidades de terminal
+# Terminal utilities
 vim
 tree
 jq

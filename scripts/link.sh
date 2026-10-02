@@ -1,5 +1,5 @@
 link_dotfiles() {
-  info "Enlaces simbólicos"
+  info "Symlinks"
   link_file bash/bashrc               "$HOME/.bashrc"
   link_file bash/inputrc              "$HOME/.inputrc"
   link_file git/gitconfig             "$HOME/.gitconfig"

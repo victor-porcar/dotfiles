@@ -1,4 +1,4 @@
-# Nombre y email van en ~/.gitconfig.local (no versionado), incluido al final
+# Name and email live in ~/.gitconfig.local (not versioned), included at the end
 
 [core]
     editor = vim

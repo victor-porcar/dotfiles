@@ -1,4 +1,4 @@
-# Valores por defecto para proyectos sin .editorconfig propio (IntelliJ, VS Code y vim lo respetan)
+# Defaults for projects without their own .editorconfig (IntelliJ, VS Code and vim honor it)
 root = true
 
 [*]

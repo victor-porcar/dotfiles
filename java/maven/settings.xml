@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Plantilla: se COPIA a ~/.m2/settings.xml solo si no existe (no se enlaza),
-  porque aquí acaban credenciales de repositorios corporativos.
-  Cifra contraseñas con: mvn --encrypt-password
+  Template: COPIED to ~/.m2/settings.xml only if missing (not symlinked),
+  because corporate repository credentials end up here.
+  Encrypt passwords with: mvn --encrypt-password
 -->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -12,8 +12,8 @@
     <!--
     <server>
       <id>company-nexus</id>
-      <username>usuario</username>
-      <password>{contraseña-cifrada}</password>
+      <username>user</username>
+      <password>{encrypted-password}</password>
     </server>
     -->
   </servers>

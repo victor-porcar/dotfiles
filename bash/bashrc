@@ -1,4 +1,4 @@
-# ~/.bashrc -> enlace simbólico a dotfiles/bash/bashrc
+# ~/.bashrc -> symlink to dotfiles/bash/bashrc
 
 [[ $- != *i* ]] && return
 

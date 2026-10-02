@@ -21,7 +21,7 @@ backup() {
   local destination="$BACKUP_DIR/${target#"$HOME"/}"
   mkdir -p "$(dirname "$destination")"
   mv "$target" "$destination"
-  warn "copia de seguridad: $target -> $destination"
+  warn "backup: $target -> $destination"
 }
 
 link_file() {
@@ -35,8 +35,8 @@ link_file() {
 
 copy_if_missing() {
   local source="$DOTFILES_DIR/$1" target="$2"
-  if [[ -e "$target" ]]; then ok "$target (ya existe, no se toca)"; return; fi
+  if [[ -e "$target" ]]; then ok "$target (already exists, left untouched)"; return; fi
   mkdir -p "$(dirname "$target")"
   cp "$source" "$target"
-  ok "$target (copiado desde plantilla)"
+  ok "$target (copied from template)"
 }

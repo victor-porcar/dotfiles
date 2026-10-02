@@ -1,8 +1,8 @@
 # dotfiles
 
-Configuración personal de entorno de desarrollo Java sobre Linux (probado en Ubuntu 24.04).
+Personal development environment for Java on Linux (tested on Ubuntu 24.04).
 
-## Instalación en una máquina nueva
+## Installing on a new machine
 
 ```bash
 sudo apt-get install -y git
@@ -11,51 +11,51 @@ cd ~/dotfiles
 ./install.sh
 ```
 
-Después abre una terminal nueva (o `source ~/.bashrc`).
+Then open a new terminal (or run `source ~/.bashrc`).
 
-Se clona por HTTPS porque en una máquina nueva aún no hay clave SSH. Para poder
-hacer push después, cambia el remoto:
+The repo is cloned over HTTPS because a fresh machine has no SSH key yet. To be able
+to push later, switch the remote:
 `git remote set-url origin git@github.com:victor-porcar/dotfiles.git`
 
-Se puede ejecutar un solo paso: `./install.sh packages | git | link | java`.
-El script es **idempotente**: lanzarlo varias veces no rompe nada.
+You can run a single step: `./install.sh packages | git | link | java`.
+The script is **idempotent**: running it several times breaks nothing.
 
-## Qué hace cada paso
+## What each step does
 
-| Paso       | Qué hace                                                                 |
-|------------|--------------------------------------------------------------------------|
-| `packages` | Instala con `apt` lo listado en `packages/apt.txt`                       |
-| `git`      | Pide nombre y email y los guarda en `~/.gitconfig.local`                 |
-| `link`     | Crea enlaces simbólicos desde `$HOME` a los ficheros del repo            |
-| `java`     | Instala SDKMAN y los candidatos de `java/sdkman-candidates.txt`          |
+| Step       | What it does                                                        |
+|------------|---------------------------------------------------------------------|
+| `packages` | Installs with `apt` everything listed in `packages/apt.txt`         |
+| `git`      | Asks for name and email and stores them in `~/.gitconfig.local`     |
+| `link`     | Creates symlinks from `$HOME` to the files in this repo             |
+| `java`     | Installs SDKMAN and the candidates in `java/sdkman-candidates.txt`  |
 
-Si al enlazar ya existe un fichero, se mueve a `~/.dotfiles-backup/<fecha>/`.
+If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>/`.
 
-## Estructura
+## Layout
 
 ```
-install.sh                 punto de entrada
-scripts/                   lógica de instalación (un fichero por paso + lib.sh)
-bash/bashrc                -> ~/.bashrc  (carga los módulos de bash/)
-bash/*.sh                  opciones, exports, historial, alias, funciones, prompt, java
-bash/inputrc               -> ~/.inputrc (autocompletado y búsqueda en historial)
+install.sh                 entry point
+scripts/                   install logic (one file per step + lib.sh)
+bash/bashrc                -> ~/.bashrc  (loads the modules in bash/)
+bash/*.sh                  options, exports, history, aliases, functions, prompt, java
+bash/inputrc               -> ~/.inputrc (completion and history search)
 git/gitconfig              -> ~/.gitconfig
-git/ignore                 -> ~/.config/git/ignore (gitignore global)
+git/ignore                 -> ~/.config/git/ignore (global gitignore)
 vim/vimrc                  -> ~/.vimrc
 editorconfig/editorconfig  -> ~/.editorconfig
-java/maven/settings.xml    copiado (no enlazado) a ~/.m2/settings.xml si no existe
-java/sdkman-candidates.txt JDK, Maven, Gradle a instalar
-packages/apt.txt           paquetes del sistema
+java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
+java/sdkman-candidates.txt JDK, Maven, Gradle to install
+packages/apt.txt           system packages
 ```
 
-## Personalización local (no versionada)
+## Local customization (not versioned)
 
-- `~/.bashrc.local`: alias, variables o secretos propios de esa máquina.
-- `~/.gitconfig.local`: identidad de git (y lo que quieras sobreescribir).
+- `~/.bashrc.local`: aliases, variables or secrets specific to that machine.
+- `~/.gitconfig.local`: git identity (and anything you want to override).
 
-Ojo: como `~/.gitconfig` es un enlace al repo, `git config --global ...` modifica
-el fichero del repo. Para cambios locales usa `git config --file ~/.gitconfig.local ...`.
+Note: since `~/.gitconfig` is a symlink into the repo, `git config --global ...` edits
+the repo file. For local changes use `git config --file ~/.gitconfig.local ...`.
 
-## Probar en limpio
+## Testing from scratch
 
-En una VM recién instalada de Ubuntu: clonar y ejecutar `./install.sh`.
+On a freshly installed Ubuntu VM: clone and run `./install.sh`.

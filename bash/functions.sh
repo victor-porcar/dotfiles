@@ -13,6 +13,6 @@ extract() {
     *.tar)          tar xf "$1" ;;
     *.zip|*.jar)    unzip "$1" ;;
     *.gz)           gunzip "$1" ;;
-    *)              echo "No sé extraer '$1'" >&2; return 1 ;;
+    *)              echo "Don't know how to extract '$1'" >&2; return 1 ;;
   esac
 }

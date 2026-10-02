@@ -9,14 +9,14 @@ done
 
 usage() {
   cat <<EOF
-Uso: ./install.sh [paso]
+Usage: ./install.sh [step]
 
-Pasos:
-  all       Todo, en este orden (por defecto)
-  packages  Paquetes del sistema (apt)
-  git       Identidad de git en ~/.gitconfig.local
-  link      Enlaces simbólicos de los dotfiles
-  java      SDKMAN + JDK, Maven y Gradle
+Steps:
+  all       Everything, in this order (default)
+  packages  System packages (apt)
+  git       Git identity in ~/.gitconfig.local
+  link      Symlink the dotfiles
+  java      SDKMAN + JDK, Maven and Gradle
 EOF
 }
 
@@ -25,7 +25,7 @@ install_all() {
   setup_git_identity
   link_dotfiles
   install_java_toolchain
-  info "Listo. Abre una terminal nueva o ejecuta: source ~/.bashrc"
+  info "Done. Open a new terminal or run: source ~/.bashrc"
 }
 
 main() {

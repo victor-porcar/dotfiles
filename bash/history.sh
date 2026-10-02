@@ -4,5 +4,5 @@ HISTCONTROL=ignoreboth:erasedups
 HISTTIMEFORMAT='%F %T  '
 shopt -s histappend
 
-# Guarda cada comando al momento: el historial se comparte entre terminales abiertas
+# Append each command immediately so history is shared across open terminals
 PROMPT_COMMAND="history -a${PROMPT_COMMAND:+; $PROMPT_COMMAND}"

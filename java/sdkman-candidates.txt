@@ -1,6 +1,6 @@
-# candidato [versión]
-# Sin versión instala la recomendada por SDKMAN.
-# Para fijar una: `sdk list java` y copia el identificador, p.ej. "java 21.0.8-tem"
+# candidate [version]
+# Without a version, SDKMAN installs its recommended one.
+# To pin one: run `sdk list java` and copy the identifier, e.g. "java 21.0.8-tem"
 java
 maven
 gradle
