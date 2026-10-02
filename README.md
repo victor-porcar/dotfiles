@@ -82,7 +82,7 @@ history for what you've already typed (type `mvn` + ↑).
 
 - **Aliases**: `st`, `sw` (switch), `br`, `ci`, `amend` (add to last commit, keep
   message), `unstage`, `last` (last commit with files), `lg` (colored graph log).
-- `pull` rebases instead of merging; `push` creates the remote branch automatically;
+- `pull` merges (default behavior, set explicitly to avoid git's warning); `push` creates the remote branch automatically;
   `fetch` prunes deleted remote branches; `rebase` auto-stashes local changes.
 - Better diffs and conflicts (`histogram`, `zdiff3`); `rerere` remembers conflict
   resolutions.
