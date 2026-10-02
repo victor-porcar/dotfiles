@@ -3,7 +3,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for script in lib packages git link java; do
+for script in lib packages git link java home; do
   source "$DOTFILES_DIR/scripts/$script.sh"
 done
 
@@ -17,6 +17,7 @@ Steps:
   git       Git identity in ~/.gitconfig.local
   link      Symlink the dotfiles
   java      SDKMAN + JDK, Maven and Gradle
+  home      Remove unwanted home dirs (Music, Videos) if empty
 EOF
 }
 
@@ -25,6 +26,7 @@ install_all() {
   setup_git_identity
   link_dotfiles
   install_java_toolchain
+  clean_home
   info "Done. Open a new terminal or run: source ~/.bashrc"
 }
 
@@ -35,6 +37,7 @@ main() {
     git)      setup_git_identity ;;
     link)     link_dotfiles ;;
     java)     install_java_toolchain ;;
+    home)     clean_home ;;
     *)        usage ;;
   esac
 }

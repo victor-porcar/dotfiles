@@ -17,7 +17,7 @@ The repo is cloned over HTTPS because a fresh machine has no SSH key yet. To be 
 to push later, switch the remote:
 `git remote set-url origin git@github.com:victor-porcar/dotfiles.git`
 
-You can run a single step: `./install.sh packages | git | link | java`.
+You can run a single step: `./install.sh packages | git | link | java | home`.
 The script is **idempotent**: running it several times breaks nothing.
 
 ## What each step does
@@ -28,6 +28,7 @@ The script is **idempotent**: running it several times breaks nothing.
 | `git`      | Asks for name and email and stores them in `~/.gitconfig.local`     |
 | `link`     | Creates symlinks from `$HOME` to the files in this repo             |
 | `java`     | Installs SDKMAN and the candidates in `java/sdkman-candidates.txt`  |
+| `home`     | Removes `~/Music` and `~/Videos` if empty and stops the desktop from recreating them |
 
 If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>/`.
 
