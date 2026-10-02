@@ -130,6 +130,30 @@ packages/apt.txt           system packages
 Note: since `~/.gitconfig` is a symlink into the repo, `git config --global ...` edits
 the repo file. For local changes use `git config --file ~/.gitconfig.local ...`.
 
+### Work vs personal git identity (`includeIf`)
+
+On a work machine, git can pick the identity based on where the repo lives.
+Everything cloned under `~/work/` commits with the work email; anything else uses
+the personal one:
+
+```ini
+# ~/.gitconfig.local
+[user]
+    name = Your Name
+    email = personal@example.com
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig.work
+```
+
+```ini
+# ~/.gitconfig.work
+[user]
+    email = you@company.com
+```
+
+The trailing `/` in `gitdir:~/work/` matters: it matches every repo below that folder.
+Check which identity applies inside a repo with `git config user.email`.
+
 ## Testing from scratch
 
 On a freshly installed Ubuntu VM: clone and run `./install.sh`.
