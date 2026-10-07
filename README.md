@@ -55,8 +55,7 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 
 - Installs the apt dependencies in `desktop/apt.txt`.
 - Installs the desktop apps listed in `desktop/snaps.txt` (IntelliJ IDEA Community, Postman,
-  Freelens),
-  latest stable version; if already installed, updates them right away.
+  Freelens) in their latest stable version; if already installed, updates them right away.
 - Installs the GNOME extensions listed in `desktop/gnome-extensions.txt` (UUIDs from
   extensions.gnome.org). GNOME downloads the version matching itself and asks for
   confirmation. Currently: [Vitals](https://github.com/corecoding/Vitals).
