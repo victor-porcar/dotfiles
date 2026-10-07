@@ -2,7 +2,7 @@
 <!--
   Template: COPIED to ~/.m2/settings.xml only if missing (not symlinked),
   because corporate repository credentials end up here.
-  Encrypt passwords with: mvn --encrypt-password
+  Encrypt passwords with: mvn -ep
 -->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
