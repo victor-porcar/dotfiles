@@ -5,6 +5,7 @@ install_desktop() {
   install_gnome_extensions
   set_wallpaper
   load_dconf_settings
+  install_terminal_profiles
 }
 
 install_gnome_extensions() {

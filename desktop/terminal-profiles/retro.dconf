@@ -1,0 +1,22 @@
+# GNOME Terminal profile "Retro": green phosphor on black, like an 80s terminal.
+# Installed by `./install.sh desktop`. Use it with: gnome-terminal --profile=Retro
+#
+# visible-name is how the installer recognises the profile: if a profile with this
+# name already exists it is updated in place instead of creating a duplicate.
+# Every palette entry is green so that coloured output keeps the retro look.
+[/]
+visible-name='Retro'
+use-theme-colors=false
+foreground-color='#33FF33'
+background-color='#000000'
+bold-color-same-as-fg=true
+palette=['#000000', '#33FF33', '#33FF33', '#33FF33', '#33FF33', '#33FF33', '#33FF33', '#33FF33', '#1A801A', '#66FF66', '#66FF66', '#66FF66', '#66FF66', '#66FF66', '#66FF66', '#66FF66']
+use-system-font=false
+font='DejaVu Sans Mono 8'
+cursor-shape='block'
+cursor-colors-set=true
+cursor-background-color='#33FF33'
+cursor-foreground-color='#000000'
+scrollbar-policy='never'
+default-size-columns=110
+default-size-rows=20

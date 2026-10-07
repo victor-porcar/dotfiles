@@ -57,6 +57,9 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 - Installs the GNOME extensions listed in `desktop/gnome-extensions.txt` (UUIDs from
   extensions.gnome.org). GNOME downloads the version matching itself and asks for
   confirmation. Currently: [Vitals](https://github.com/corecoding/Vitals).
+- Creates the GNOME Terminal profiles in `desktop/terminal-profiles/*.dconf` (updated in
+  place if a profile with the same name exists; your default profile is kept).
+  Currently: **Retro**, green on black like an 80s terminal (`gnome-terminal --profile=Retro`).
 - Sets the first image in `desktop/wallpapers/` as background (if any).
 - Loads GNOME settings from `desktop/dconf/*.conf`. The file name is the dconf path with
   dots. To save an extension's settings:
@@ -208,7 +211,7 @@ java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
 bin/                       personal scripts, added to PATH (kubenv.sh)
 packages/apt.txt           system packages
-desktop/                   optional GNOME setup: extensions, wallpapers, dconf settings
+desktop/                   optional GNOME setup: extensions, terminal profiles, wallpapers, dconf
 local-env/                 Docker Compose files for local services (versions in .env)
 ```
 

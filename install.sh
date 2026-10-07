@@ -3,7 +3,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for script in lib packages git link java home desktop; do
+for script in lib packages git link java home desktop terminal-profiles; do
   source "$DOTFILES_DIR/scripts/$script.sh"
 done
 
@@ -20,7 +20,7 @@ Steps:
   home      Tidy home dirs, Documents -> ~/docs, create ~/work structure
 
 Optional (not part of all):
-  desktop   GNOME extensions, wallpaper and dconf settings from desktop/
+  desktop   GNOME extensions, terminal profiles, wallpaper and dconf settings
 EOF
 }
 
