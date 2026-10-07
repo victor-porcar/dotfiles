@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Stop local-env
+Comment=Stop every service in dotfiles/local-env, keeping its data
+Exec=gnome-terminal --profile=Retro --title="Stop local-env" -- bash -ic "stopAllLocalEnv; read -rp 'Press Enter to close'"
+Icon=media-playback-stop
+Terminal=false

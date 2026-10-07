@@ -64,6 +64,8 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 - Creates the GNOME Terminal profiles in `desktop/terminal-profiles/*.dconf` (updated in
   place if a profile with the same name exists; your default profile is kept).
   Currently: **Retro**, green on black like an 80s terminal (`gnome-terminal --profile=Retro`).
+- Puts the launchers in `desktop/launchers/` on the desktop: **Start / Stop / Reset local-env**,
+  each opening a Retro terminal with the output.
 - Sets the first image in `desktop/wallpapers/` as background (if any).
 - Loads GNOME settings from `desktop/dconf/*.conf`. The file name is the dconf path with
   dots. To save an extension's settings:

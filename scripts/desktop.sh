@@ -8,6 +8,7 @@ install_desktop() {
   set_wallpaper
   load_dconf_settings
   install_terminal_profiles
+  install_launchers
 }
 
 install_snaps() {
@@ -31,6 +32,17 @@ install_snap() {
 refresh_snap() {
   if sudo snap refresh "$1"; then ok "$1: up to date"; return; fi
   warn "$1: could not update now (close it and re-run, or wait for the automatic update)"
+}
+
+# Copied (not linked) and marked trusted, otherwise GNOME won't let them run
+install_launchers() {
+  local desktop file
+  desktop="$(xdg-user-dir DESKTOP)"
+  for file in "$DOTFILES_DIR"/desktop/launchers/*.desktop; do
+    install -m 755 "$file" "$desktop/"
+    gio set "$desktop/$(basename "$file")" metadata::trusted true
+    ok "launcher: $(basename "$file" .desktop)"
+  done
 }
 
 install_gnome_extensions() {
