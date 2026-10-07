@@ -14,9 +14,9 @@ Without --namespace, the namespace of the kubeconfig context is used.
 Port-forwards reconnect automatically if the pod restarts. Ctrl-C stops them all.
 
 Aliases are read from \$KUBENV_CONFIG ($KUBENV_CONFIG), one per line,
-paths relative to that file:  izzi-int=kubeconfigs/izzi-int.yaml
+paths relative to that file:  my-env=kubeconfigs/my-env.yaml
 
-Example: kubenv.sh -n sdp-int izzi-int search:8080 svc/solr:8984:8983:izzi-infra"
+Example: kubenv.sh -n my-namespace my-env search:8080 svc/solr:8984:8983:my-infra"
 
 declare -A ALIASES
 

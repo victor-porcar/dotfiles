@@ -133,7 +133,7 @@ history for what you've already typed (type `mvn` + ↑).
 
 ```bash
 kubenv.sh [-n|--namespace <ns>] <kubeconfig|alias> target:localPort[:remotePort[:kubeconfig|alias]] ...
-kubenv.sh -n sdp-int izzi-int search:8080 svc/solr:8984:8983:izzi-infra
+kubenv.sh -n my-namespace my-env search:8080 svc/solr:8984:8983:my-infra
 ```
 
 - `target` is a deployment/statefulset/daemonset name, matched exactly against the pod
@@ -147,7 +147,7 @@ kubenv.sh -n sdp-int izzi-int search:8080 svc/solr:8984:8983:izzi-infra
   using it is left alone and that forward is skipped.
 - Aliases live outside the repo, in `~/work/environments/kubenv.properties`
   (override with `KUBENV_CONFIG`), with paths relative to that file:
-  `izzi-int=kubeconfigs/izzi-int.yaml`
+  `my-env=kubeconfigs/my-env.yaml`
 - Needs `kubectl` (not installed by `install.sh`).
 - Tip: keep one small wrapper per environment next to its kubeconfigs (outside this
   repo), e.g. `exec kubenv.sh -n my-ns <kubeconfig> svc-a:10400:8080 svc-b:10401:8080`.
