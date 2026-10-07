@@ -115,6 +115,25 @@ repos it shows `(hg:branch|bookmark)`, read straight from `.hg/` to keep the pro
 **Readline** (`bash/inputrc`): case-insensitive completion; up/down arrows search
 history for what you've already typed (type `mvn` + ↑).
 
+### Scripts (`bin/`, in PATH)
+
+**`kubenv.sh`**: Kubernetes port-forwards for an environment in one command.
+
+```bash
+kubenv.sh <kubeconfig|alias> target:localPort[:remotePort[:kubeconfig|alias]] ...
+kubenv.sh izzi-int search:8080 svc/solr:8984:8983:izzi-infra
+```
+
+- `target` is a pod name prefix (first Running pod) or a resource like `svc/solr`.
+- The remote port is taken from the pod if omitted.
+- Port-forwards reconnect automatically when the pod restarts; Ctrl-C stops them all.
+- If the local port is taken by a previous port-forward it is replaced; anything else
+  using it is left alone and that forward is skipped.
+- Aliases live outside the repo, in `~/work/environments/kubenv.properties`
+  (override with `KUBENV_CONFIG`), with paths relative to that file:
+  `izzi-int=kubeconfigs/izzi-int.yaml`
+- Needs `kubectl` (not installed by `install.sh`).
+
 ### Git (`git/gitconfig`)
 
 - **Aliases**: `st`, `sw` (switch), `br`, `ci`, `amend` (add to last commit, keep
@@ -135,7 +154,7 @@ history for what you've already typed (type `mvn` + ↑).
 ### Tools installed
 
 - **apt**: git, curl, wget, zip/unzip, build-essential, vim, tree, `jq`, `htop`,
-  `ripgrep` (`rg`), `fd-find` (`fdfind`), bash-completion.
+  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, bash-completion.
 - **SDKMAN**: JDK 21 (Temurin), Maven, Gradle.
 
 ### Templates
@@ -181,6 +200,7 @@ editorconfig/editorconfig  -> ~/.editorconfig
 bash/bashrc.local.example  copied (not linked) to ~/.bashrc.local if missing
 java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
+bin/                       personal scripts, added to PATH (kubenv.sh)
 packages/apt.txt           system packages
 desktop/                   optional GNOME setup: extensions, wallpapers, dconf settings
 local-env/                 Docker Compose files for local services (versions in .env)

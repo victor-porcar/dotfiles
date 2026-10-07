@@ -15,3 +15,4 @@ jq
 htop
 ripgrep
 fd-find
+lsof
