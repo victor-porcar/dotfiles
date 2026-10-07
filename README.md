@@ -13,11 +13,10 @@ cd ~/dotfiles
 
 Then open a new terminal (or run `source ~/.bashrc`).
 
-The repo is cloned over HTTPS because a fresh machine has no SSH key yet. To be able
-to push later, switch the remote:
-`git remote set-url origin git@github.com:victor-porcar/dotfiles.git`
+The repo is cloned over HTTPS because a fresh machine has no SSH key yet. The `github`
+step sets up SSH access and then switches the remote to SSH, so you can push.
 
-You can run a single step: `./install.sh packages | git | link | java | home`.
+You can run a single step: `./install.sh packages | git | github | link | java | home`.
 The script is **idempotent**: running it several times breaks nothing.
 
 ## What each step does
@@ -26,6 +25,7 @@ The script is **idempotent**: running it several times breaks nothing.
 |------------|---------------------------------------------------------------------|
 | `packages` | Installs with `apt` everything listed in `packages/apt.txt`         |
 | `git`      | Asks for name and email and stores them in `~/.gitconfig.local`     |
+| `github`   | Passwordless SSH access to GitHub: verifies github.com's fingerprint, creates an SSH key if missing, **pauses** while you add it on github.com (opens the page for you), checks the login and switches this repo's remote to SSH |
 | `link`     | Creates symlinks from `$HOME` to the files in this repo             |
 | `java`     | Installs SDKMAN and the candidates in `java/sdkman-candidates.txt`  |
 | `home`     | Removes `~/Music`, `~/Videos`, `~/Templates` and `~/Public` (or their Spanish names) if empty and stops the desktop from recreating them; points the Documents folder to `~/docs`; creates `~/personal` and the `~/work` structure |
