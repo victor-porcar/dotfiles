@@ -17,3 +17,6 @@ alias gl='git lg'
 
 alias reload='source ~/.bashrc'
 alias dotfiles='cd "$DOTFILES_DIR"'
+
+alias startAll='"$DOTFILES_DIR"/local-env/startAll.sh'
+alias stopAll='"$DOTFILES_DIR"/local-env/stopAll.sh'

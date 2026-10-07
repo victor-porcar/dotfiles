@@ -79,6 +79,7 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 | `gl`       | `git lg` (graph log)                         |
 | `reload`   | reload `~/.bashrc`                           |
 | `dotfiles` | `cd` into this repo                          |
+| `startAll` / `stopAll` | start / stop every service in `local-env/` |
 
 **Java aliases** (`bash/java.sh`), plus SDKMAN loaded (`sdk` to switch JDKs)
 
@@ -157,7 +158,7 @@ docker-compose down        # stop, keep data
 docker-compose down -v     # stop and delete data
 ```
 
-All at once: `local-env/startAll.sh` and `local-env/stopAll.sh` (data is kept).
+All at once: `startAll` and `stopAll` aliases (`local-env/startAll.sh`, `stopAll.sh`; data is kept).
 To add a service, create its folder with a `compose.yaml` and add one line to each script.
 
 **Changing versions**: edit the `.env` file next to each `compose.yaml`, or override
