@@ -1,6 +1,8 @@
 declare -A UNWANTED_XDG_DIRS=(
   [MUSIC]="Music Música"
   [VIDEOS]="Videos Vídeos"
+  [TEMPLATES]="Templates Plantillas"
+  [PUBLICSHARE]="Public Público"
 )
 
 clean_home() {
