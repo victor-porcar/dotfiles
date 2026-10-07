@@ -20,3 +20,4 @@ alias dotfiles='cd "$DOTFILES_DIR"'
 
 alias startAllLocalEnv='"$DOTFILES_DIR"/local-env/startAllLocalEnv.sh'
 alias stopAllLocalEnv='"$DOTFILES_DIR"/local-env/stopAllLocalEnv.sh'
+alias resetAllLocalEnv='"$DOTFILES_DIR"/local-env/resetAllLocalEnv.sh'
