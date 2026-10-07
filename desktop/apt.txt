@@ -1,3 +1,7 @@
 # Dependencies of the GNOME extensions in gnome-extensions.txt
 gir1.2-gtop-2.0
 lm-sensors
+
+# The launchers and the Retro profile need GNOME Terminal, which is no longer
+# the default terminal since Ubuntu 25.10 (replaced by Ptyxis)
+gnome-terminal
