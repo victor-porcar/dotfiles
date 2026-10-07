@@ -124,7 +124,10 @@ kubenv.sh [-n|--namespace <ns>] <kubeconfig|alias> target:localPort[:remotePort[
 kubenv.sh -n sdp-int izzi-int search:8080 svc/solr:8984:8983:izzi-infra
 ```
 
-- `target` is a pod name prefix (first Running pod) or a resource like `svc/solr`.
+- `target` is a deployment/statefulset/daemonset name, matched exactly against the pod
+  name structure (`publisher` never picks `publisher-s3-...`). If nothing matches exactly
+  it falls back to a pod name prefix, warning when several pods match. A resource like
+  `svc/solr` or `deploy/api` is passed to kubectl as is.
 - Without `--namespace`, the namespace of the kubeconfig context is used.
 - The remote port is taken from the pod if omitted.
 - Port-forwards reconnect automatically when the pod restarts; Ctrl-C stops them all.

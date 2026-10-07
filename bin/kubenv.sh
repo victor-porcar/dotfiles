@@ -8,7 +8,7 @@ NAMESPACE_ARGS=()
 USAGE="Usage: kubenv.sh [-n|--namespace <ns>] <kubeconfig|alias> <forward>...
 
   forward:  target:localPort[:remotePort[:kubeconfig|alias]]
-  target:   pod name prefix (first Running pod wins) or kubectl resource (svc/solr, deploy/api)
+  target:   deployment/statefulset name, pod name prefix, or resource (svc/solr, deploy/api)
 
 Without --namespace, the namespace of the kubeconfig context is used.
 Port-forwards reconnect automatically if the pod restarts. Ctrl-C stops them all.
@@ -59,9 +59,26 @@ kube() {
 }
 
 find_pod() {
-  local kubeconfig="$1" target="$2"
+  local kubeconfig="$1" target="$2" pods
   if [[ "$target" == */* ]]; then echo "$target"; return; fi
-  kube "$kubeconfig" get pods --field-selector=status.phase=Running -o name | grep -m1 "^pod/$target"
+  pods="$(kube "$kubeconfig" get pods --field-selector=status.phase=Running -o name)" || return 1
+  match_workload "$pods" "${target%-}" || match_prefix "$pods" "$target"
+}
+
+# Pod names are <deployment>-<hash>-<hash>, <daemonset>-<hash> or <statefulset>-<n>;
+# the hashes use this alphabet, so "publisher" never matches "publisher-s3-..."
+match_workload() {
+  local name="${2//./\\.}" hash='[bcdfghjklmnpqrstvwxz2456789]'
+  grep -m1 -E "^pod/$name-($hash{6,10}-$hash{5}|$hash{5}|[0-9]+)$" <<<"$1"
+}
+
+match_prefix() {
+  local candidates
+  candidates="$(grep "^pod/$2" <<<"$1")" || return 1
+  if [[ "$(wc -l <<<"$candidates")" -gt 1 ]]; then
+    echo "!! Several pods start with '$2', using the first:" $candidates >&2
+  fi
+  head -n1 <<<"$candidates"
 }
 
 pod_port() {
