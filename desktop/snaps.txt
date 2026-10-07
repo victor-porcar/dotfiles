@@ -1,0 +1,4 @@
+# Desktop apps installed with snap: name [snap install options]
+# --classic is required by apps that need full system access (IDEs, tools that run kubectl...)
+intellij-idea-community --classic
+postman

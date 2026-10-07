@@ -2,10 +2,26 @@ install_desktop() {
   info "Desktop (GNOME)"
   if ! command_exists gnome-shell; then warn "GNOME not found, skipping"; return; fi
   install_apt_list desktop/apt.txt
+  install_snaps
   install_gnome_extensions
   set_wallpaper
   load_dconf_settings
   install_terminal_profiles
+}
+
+install_snaps() {
+  local snaps line
+  mapfile -t snaps < <(read_list desktop/snaps.txt)
+  for line in "${snaps[@]}"; do
+    install_snap $line
+  done
+}
+
+install_snap() {
+  local name="$1"
+  if snap list "$name" >/dev/null 2>&1; then ok "$name: already installed"; return; fi
+  if sudo snap install "$@"; then ok "$name: installed"; return; fi
+  warn "$name: installation failed"
 }
 
 install_gnome_extensions() {
