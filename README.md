@@ -28,7 +28,7 @@ The script is **idempotent**: running it several times breaks nothing.
 | `git`      | Asks for name and email and stores them in `~/.gitconfig.local`     |
 | `link`     | Creates symlinks from `$HOME` to the files in this repo             |
 | `java`     | Installs SDKMAN and the candidates in `java/sdkman-candidates.txt`  |
-| `home`     | Removes `~/Music` and `~/Videos` (or `Música`, `Vídeos`) if empty and stops the desktop from recreating them |
+| `home`     | Removes `~/Music` and `~/Videos` (or `Música`, `Vídeos`) if empty and stops the desktop from recreating them; points the Documents folder to `~/docs` |
 
 If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>/`.
 
