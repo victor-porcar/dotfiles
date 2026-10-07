@@ -2,3 +2,4 @@
 # --classic is required by apps that need full system access (IDEs, tools that run kubectl...)
 intellij-idea-community --classic
 postman
+freelens --classic
