@@ -154,11 +154,9 @@ kubenv.sh -n sdp-int izzi-int search:8080 svc/solr:8984:8983:izzi-infra
 - Default branch `main`, LF line endings.
 - **Global gitignore** (`git/ignore`): IntelliJ, VS Code, Eclipse and OS files.
 
-### Editors
+### Editor
 
 - **vim**: line numbers, smart search, 4-space indentation, mouse support.
-- **editorconfig**: UTF-8, LF, 4 spaces (2 for YAML/JSON/XML), trims trailing
-  whitespace. Used by IntelliJ and VS Code in projects without their own.
 
 ### Tools installed
 
@@ -205,7 +203,6 @@ bash/inputrc               -> ~/.inputrc (completion and history search)
 git/gitconfig              -> ~/.gitconfig
 git/ignore                 -> ~/.config/git/ignore (global gitignore)
 vim/vimrc                  -> ~/.vimrc
-editorconfig/editorconfig  -> ~/.editorconfig
 bash/bashrc.local.example  copied (not linked) to ~/.bashrc.local if missing
 java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
