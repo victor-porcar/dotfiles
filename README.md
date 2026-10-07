@@ -28,9 +28,26 @@ The script is **idempotent**: running it several times breaks nothing.
 | `git`      | Asks for name and email and stores them in `~/.gitconfig.local`     |
 | `link`     | Creates symlinks from `$HOME` to the files in this repo             |
 | `java`     | Installs SDKMAN and the candidates in `java/sdkman-candidates.txt`  |
-| `home`     | Removes `~/Music`, `~/Videos`, `~/Templates` and `~/Public` (or their Spanish names) if empty and stops the desktop from recreating them; points the Documents folder to `~/docs` |
+| `home`     | Removes `~/Music`, `~/Videos`, `~/Templates` and `~/Public` (or their Spanish names) if empty and stops the desktop from recreating them; points the Documents folder to `~/docs`; creates the `~/work` structure |
 
 If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>/`.
+
+### Home layout
+
+The `home` step creates this structure (only the folders that don't exist yet):
+
+```
+~/docs/               personal documents (the desktop's Documents folder)
+~/work/
+├── access/           how I get in: VPN, certificates...
+├── archive/          old stuff kept just in case
+├── bin/              work scripts and tools (in PATH)
+├── docs/             reference docs: PDFs, diagrams, specs
+├── environments/     remote environments: kubeconfigs, clusters
+├── local-env/        what runs on my machine: docker compose files
+├── notes/            my own notes
+└── workspaces/       source code
+```
 
 ### Optional: desktop (`./install.sh desktop`)
 

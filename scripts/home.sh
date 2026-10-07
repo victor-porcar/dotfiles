@@ -5,6 +5,8 @@ declare -A UNWANTED_XDG_DIRS=(
   [PUBLICSHARE]="Public Público"
 )
 
+WORK_DIRS=(access archive bin docs environments local-env notes workspaces)
+
 clean_home() {
   info "Home directories"
   local name
@@ -12,6 +14,17 @@ clean_home() {
     remove_xdg_dir "$name"
   done
   redirect_xdg_dir DOCUMENTS "$HOME/docs" "Documents Documentos"
+  create_work_dirs
+}
+
+create_work_dirs() {
+  local dir
+  for dir in "${WORK_DIRS[@]}"; do
+    if [[ -d "$HOME/work/$dir" ]]; then continue; fi
+    mkdir -p "$HOME/work/$dir"
+    ok "$HOME/work/$dir: created"
+  done
+  ok "~/work structure ready"
 }
 
 # Pointing the XDG dir to $HOME stops the desktop from recreating it at login

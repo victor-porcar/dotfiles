@@ -8,6 +8,7 @@ path_append() {
 
 path_prepend "$HOME/.local/bin"
 path_prepend "$HOME/bin"
+path_prepend "$HOME/work/bin"
 export PATH
 
 export EDITOR=vim
