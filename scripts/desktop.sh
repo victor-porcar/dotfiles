@@ -3,6 +3,7 @@ install_desktop() {
   if ! command_exists gnome-shell; then warn "GNOME not found, skipping"; return; fi
   install_apt_list desktop/apt.txt
   install_snaps
+  install_chrome
   install_gnome_extensions
   set_wallpaper
   load_dconf_settings

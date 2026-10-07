@@ -56,6 +56,8 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 - Installs the apt dependencies in `desktop/apt.txt`.
 - Installs the desktop apps listed in `desktop/snaps.txt` (IntelliJ IDEA Community, Postman,
   Freelens) in their latest stable version; if already installed, updates them right away.
+- Installs Google Chrome from Google's official `.deb` (which also adds Google's apt
+  repository, so it's updated with the system), or upgrades it if already installed.
 - Installs the GNOME extensions listed in `desktop/gnome-extensions.txt` (UUIDs from
   extensions.gnome.org). GNOME downloads the version matching itself and asks for
   confirmation. Currently: [Vitals](https://github.com/corecoding/Vitals).
@@ -102,6 +104,8 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 - `mkcd dir`: create a directory and `cd` into it.
 - `port 8080`: show which process is using a port.
 - `extract file`: unpack `.tar.gz`, `.tar.xz`, `.zip`, `.jar`, `.gz`...
+- `update`: update everything at once: apt packages (incl. Chrome), snaps and SDKMAN.
+  Tells you if a reboot is needed. Java stays on the pinned version.
 - `path_prepend dir` / `path_append dir`: add to `PATH` only if the dir exists and is not
   already there (handy in `~/.bashrc.local`).
 

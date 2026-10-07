@@ -3,7 +3,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for script in lib packages git link java home desktop terminal-profiles; do
+for script in lib packages git link java home desktop terminal-profiles chrome; do
   source "$DOTFILES_DIR/scripts/$script.sh"
 done
 

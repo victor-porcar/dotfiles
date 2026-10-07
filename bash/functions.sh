@@ -16,3 +16,10 @@ extract() {
     *)              echo "Don't know how to extract '$1'" >&2; return 1 ;;
   esac
 }
+
+update() {
+  sudo apt update && sudo apt upgrade -y || return
+  sudo snap refresh
+  if declare -F sdk >/dev/null; then sdk selfupdate; fi
+  if [[ -f /var/run/reboot-required ]]; then echo "Reboot required to finish the update"; fi
+}
