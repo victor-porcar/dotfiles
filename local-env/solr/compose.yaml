@@ -1,0 +1,49 @@
+# SolrCloud: 3 Solr nodes + ZooKeeper. Versions in .env
+# Admin UI: http://localhost:8983
+
+x-solr-node: &solr-node
+  image: solr:${SOLR_VERSION}
+  depends_on:
+    zookeeper:
+      condition: service_healthy
+
+services:
+  zookeeper:
+    image: zookeeper:${ZOOKEEPER_VERSION}
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper_data:/data
+    healthcheck:
+      test: ["CMD", "zkServer.sh", "status"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  solr1:
+    <<: *solr-node
+    container_name: solr1
+    environment: [SOLR_MODE=cloud, SOLR_HOST=solr1, ZK_HOST=zookeeper:2181]
+    ports: ["8983:8983"]
+    volumes: [solr1_data:/var/solr]
+
+  solr2:
+    <<: *solr-node
+    container_name: solr2
+    environment: [SOLR_MODE=cloud, SOLR_HOST=solr2, ZK_HOST=zookeeper:2181]
+    ports: ["7574:8983"]
+    volumes: [solr2_data:/var/solr]
+
+  solr3:
+    <<: *solr-node
+    container_name: solr3
+    environment: [SOLR_MODE=cloud, SOLR_HOST=solr3, ZK_HOST=zookeeper:2181]
+    ports: ["7575:8983"]
+    volumes: [solr3_data:/var/solr]
+
+volumes:
+  zookeeper_data:
+  solr1_data:
+  solr2_data:
+  solr3_data:

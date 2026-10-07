@@ -140,6 +140,29 @@ history for what you've already typed (type `mvn` + ↑).
 
 - `~/.m2/settings.xml`: skeleton for corporate Nexus/Artifactory servers and mirrors.
 
+### Local services (`local-env/`)
+
+Generic services for local development with Docker Compose. Not installed by
+`install.sh`: start them when needed.
+
+| Service         | What                                   | Ports                         |
+|-----------------|----------------------------------------|-------------------------------|
+| `redis-cluster` | Redis Cluster, 3 masters + 3 replicas (Bitnami) | `6379` (node 0 only)  |
+| `solr`          | SolrCloud, 3 nodes + ZooKeeper         | `8983`, `7574`, `7575`, `2181` |
+
+```bash
+cd ~/dotfiles/local-env/solr
+docker-compose up -d       # start
+docker-compose down        # stop, keep data
+docker-compose down -v     # stop and delete data
+```
+
+All at once: `local-env/startAll.sh` and `local-env/stopAll.sh` (data is kept).
+To add a service, create its folder with a `compose.yaml` and add one line to each script.
+
+**Changing versions**: edit the `.env` file next to each `compose.yaml`, or override
+it for a single run: `SOLR_VERSION=9.9.0 docker-compose up -d`.
+
 ## Layout
 
 ```
@@ -157,6 +180,7 @@ java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
 packages/apt.txt           system packages
 desktop/                   optional GNOME setup: extensions, wallpapers, dconf settings
+local-env/                 Docker Compose files for local services (versions in .env)
 ```
 
 ## Local customization (not versioned)
