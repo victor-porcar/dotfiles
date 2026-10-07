@@ -17,7 +17,7 @@ Steps:
   git       Git identity in ~/.gitconfig.local
   link      Symlink the dotfiles
   java      SDKMAN + JDK, Maven and Gradle
-  home      Tidy home dirs, Documents -> ~/docs, create ~/work structure
+  home      Tidy home dirs, Documents -> ~/docs, create ~/personal and ~/work
 
 Optional (not part of all):
   desktop   GNOME extensions, terminal profiles, wallpaper and dconf settings
