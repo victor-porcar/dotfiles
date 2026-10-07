@@ -108,7 +108,7 @@ forward_once() {
 
 # Background jobs + wait keep the TERM trap responsive while kubectl or sleep run
 forward_loop() {
-  trap 'kill $(jobs -p) 2>/dev/null; exit' TERM
+  trap 'kill $(jobs -p) 2>/dev/null; exit' TERM HUP
   while true; do
     forward_once "$@"
     echo "!! Port-forward $2 stopped, retrying in 3s" >&2
@@ -142,7 +142,7 @@ main() {
   export KUBECONFIG
   show_context
   trap 'kill $(jobs -p) 2>/dev/null' EXIT
-  trap 'exit 0' INT TERM
+  trap 'exit 0' INT TERM HUP
   for spec in "${ARGS[@]:1}"; do start_forward "$spec" "$KUBECONFIG"; done
   wait
 }
