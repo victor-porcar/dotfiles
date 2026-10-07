@@ -120,11 +120,12 @@ history for what you've already typed (type `mvn` + ↑).
 **`kubenv.sh`**: Kubernetes port-forwards for an environment in one command.
 
 ```bash
-kubenv.sh <kubeconfig|alias> target:localPort[:remotePort[:kubeconfig|alias]] ...
-kubenv.sh izzi-int search:8080 svc/solr:8984:8983:izzi-infra
+kubenv.sh [-n|--namespace <ns>] <kubeconfig|alias> target:localPort[:remotePort[:kubeconfig|alias]] ...
+kubenv.sh -n sdp-int izzi-int search:8080 svc/solr:8984:8983:izzi-infra
 ```
 
 - `target` is a pod name prefix (first Running pod) or a resource like `svc/solr`.
+- Without `--namespace`, the namespace of the kubeconfig context is used.
 - The remote port is taken from the pod if omitted.
 - Port-forwards reconnect automatically when the pod restarts; Ctrl-C stops them all.
 - If the local port is taken by a previous port-forward it is replaced; anything else
@@ -133,6 +134,8 @@ kubenv.sh izzi-int search:8080 svc/solr:8984:8983:izzi-infra
   (override with `KUBENV_CONFIG`), with paths relative to that file:
   `izzi-int=kubeconfigs/izzi-int.yaml`
 - Needs `kubectl` (not installed by `install.sh`).
+- Tip: keep one small wrapper per environment next to its kubeconfigs (outside this
+  repo), e.g. `exec kubenv.sh -n my-ns <kubeconfig> svc-a:10400:8080 svc-b:10401:8080`.
 
 ### Git (`git/gitconfig`)
 
