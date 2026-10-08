@@ -89,7 +89,7 @@ credentials**. Whoever has the file can get into all of that:
 | `github`   | Passwordless SSH access to GitHub: verifies github.com's fingerprint, creates an SSH key if missing, **pauses** while you add it on github.com (opens the page for you), checks the login and switches this repo's remote to SSH |
 | `link`     | Creates symlinks from `$HOME` to the files in this repo             |
 | `java`     | Installs SDKMAN and the candidates in `java/sdkman-candidates.txt`  |
-| `home`     | Removes `~/Music`, `~/Videos`, `~/Templates` and `~/Public` (or their Spanish names) if empty and stops the desktop from recreating them; points the Documents folder to `~/docs`; creates `~/personal` and the `~/work` structure |
+| `home`     | Removes `~/Music`, `~/Videos`, `~/Templates` and `~/Public` (or their Spanish names) if empty and stops the desktop from recreating them; points the Documents folder to `~/docs`; creates `~/personal`, `~/tmp` (auto-cleaned after 30 days) and the `~/work` structure |
 
 If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>/`.
 
@@ -100,6 +100,7 @@ The `home` step creates this structure (only the folders that don't exist yet):
 ```
 ~/docs/               personal documents (the desktop's Documents folder)
 ~/personal/           personal code (github-sync clones my repos into github-<user>/)
+~/tmp/                scratch space; files unused for 30 days are deleted automatically
 ~/work/
 ├── access/           how I get in: VPN, certificates...
 ├── archive/          old stuff kept just in case
@@ -303,6 +304,7 @@ git/gitconfig              -> ~/.gitconfig
 git/ignore                 -> ~/.config/git/ignore (global gitignore)
 vim/vimrc                  -> ~/.vimrc
 tmux/tmux.conf             -> ~/.config/tmux/tmux.conf
+systemd/tmp.conf           -> ~/.config/user-tmpfiles.d/tmp.conf (~/tmp cleanup)
 bash/bashrc.local.example  copied (not linked) to ~/.bashrc.local if missing
 java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install

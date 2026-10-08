@@ -18,7 +18,7 @@ Steps:
   github    Passwordless SSH access to GitHub (pauses to add the key on github.com)
   link      Symlink the dotfiles
   java      SDKMAN + JDK, Maven and Gradle
-  home      Tidy home dirs, Documents -> ~/docs, create ~/personal and ~/work
+  home      Tidy home dirs, Documents -> ~/docs, create ~/personal, ~/tmp and ~/work
 
 Optional (not part of all):
   desktop   GNOME extensions, terminal profiles, wallpaper and dconf settings

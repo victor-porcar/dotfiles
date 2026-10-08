@@ -6,7 +6,7 @@ declare -A UNWANTED_XDG_DIRS=(
 )
 
 HOME_DIRS=(
-  personal
+  personal tmp
   work/access work/archive work/bin work/docs work/environments
   work/local-env work/notes work/workspaces
 )
@@ -19,6 +19,7 @@ clean_home() {
   done
   redirect_xdg_dir DOCUMENTS "$HOME/docs" "Documents Documentos"
   create_home_dirs
+  enable_tmp_cleanup
 }
 
 create_home_dirs() {
@@ -28,7 +29,7 @@ create_home_dirs() {
     mkdir -p "$HOME/$dir"
     ok "$HOME/$dir: created"
   done
-  ok "~/personal and ~/work structure ready"
+  ok "~/personal, ~/tmp and ~/work structure ready"
 }
 
 # Pointing the XDG dir to $HOME stops the desktop from recreating it at login
@@ -59,4 +60,13 @@ remove_empty_dir() {
   if [[ ! -d "$dir" ]]; then return; fi
   if rmdir "$dir" 2>/dev/null; then ok "$dir: removed"; return; fi
   warn "$dir: not empty, left untouched"
+}
+
+# Runs systemd-tmpfiles daily for this user, which applies ~/.config/user-tmpfiles.d/tmp.conf
+enable_tmp_cleanup() {
+  if systemctl --user enable --now systemd-tmpfiles-clean.timer 2>/dev/null; then
+    ok "~/tmp: files unused for 30 days are deleted daily"
+  else
+    warn "could not enable the daily ~/tmp cleanup (systemd-tmpfiles-clean.timer)"
+  fi
 }
