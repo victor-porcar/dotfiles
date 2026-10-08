@@ -19,6 +19,67 @@ step sets up SSH access and then switches the remote to SSH, so you can push.
 You can run a single step: `./install.sh packages | git | github | link | java | home`.
 The script is **idempotent**: running it several times breaks nothing.
 
+## Moving to a new machine (a "copy" of the current one)
+
+Think of a machine as two kinds of things:
+
+1. **The recipe**: how everything must be set up (programs, shortcuts, the green terminal,
+   the local-env launchers...). That is this repo, applied by `install.sh`.
+2. **Your stuff**: your code, documents, keys, VPN, kubeconfigs... It is private, so it can't
+   go to GitHub. That's what `backup-private` and `recover-private` are for.
+
+Recipe + stuff = your machine exactly as it is now.
+
+### On the current machine: make the copy
+
+Plug in a USB disk (or pick any folder) and run:
+
+```bash
+backup-private /media/$USER/MyDisk
+```
+
+It lists what it will save, warns that it is not encrypted and asks `Proceed? [y/N]`.
+Answer `y` and wait a few minutes. The result is **a single file** on the disk, such as
+`private-backup-mymachine-20261008-1200.tar.gz`: the "suitcase" with all your stuff.
+
+### On the new machine: make it the same
+
+**Step 1, the recipe** (installs and configures everything):
+
+```bash
+sudo apt-get install -y git && git clone https://github.com/victor-porcar/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh && ./install.sh desktop
+```
+
+Log out and back in.
+
+**Step 2, your stuff** (plug in the disk with the copy):
+
+```bash
+recover-private /media/$USER/MyDisk/private-backup-mymachine-20261008-1200.tar.gz
+```
+
+It shows what it will put where, asks `Proceed? [y/N]`; answer `y` and open a new terminal.
+Your `work`, `personal` and `docs` folders, SSH keys, VPN, kubenv, launchers... all in place.
+
+### What does NOT travel in the copy
+
+| What | How it comes back |
+|---|---|
+| Programs (IntelliJ, Chrome, Java...) | Installed by the recipe |
+| `target/`, `node_modules/` folders | Regenerated when you build |
+| IntelliJ settings | IntelliJ Settings Sync (your JetBrains account) |
+| Chrome bookmarks | Your Google account |
+| Docker data (Redis, Solr, **Oracle**) | Redis and Solr can be regenerated; **export Oracle separately** if its data matters |
+
+### Important
+
+The copy is **not encrypted** and holds **your SSH keys, VPN password and cloud/cluster
+credentials**. Whoever has the file can get into all of that:
+
+- Keep it on **a disk only you use**.
+- **Don't upload it to the cloud** unencrypted.
+- **Delete it** once the new machine is restored, if you no longer need it.
+
 ## What each step does
 
 | Step       | What it does                                                        |
