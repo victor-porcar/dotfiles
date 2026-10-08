@@ -158,6 +158,15 @@ changes or a diverged branch are only fetched, never touched. The dotfiles repo 
 in `~/dotfiles`. Needs the GitHub CLI (`gh`, installed by `packages`) logged in once:
 `gh auth login`.
 
+**`backup-private <folder>`** / **`recover-private <archive>`**: back up and restore the
+private data that is not in this repo, so that a new machine with `install.sh` +
+`recover-private` ends up like the old one. Includes `~/work`, `~/personal`, `~/docs`,
+`~/Desktop`, `~/Pictures`, `~/.ssh`, `~/.gnupg`, `~/.kube`, `~/.aws`, `~/.config/gh`,
+`~/.bashrc.local`, `~/.gitconfig.local` and `~/.m2/settings.xml`, skipping build output
+(`target/`, `node_modules/`, `build/`, `.gradle/`). Both list what they will do and ask
+before proceeding. Restoring overwrites existing files. **The archive is not encrypted**:
+it holds SSH keys and credentials. Not included: Docker volumes (e.g. local-env data).
+
 ### Git (`git/gitconfig`)
 
 - **Aliases**: `st`, `sw` (switch), `br`, `ci`, `amend` (add to last commit, keep
@@ -222,7 +231,7 @@ vim/vimrc                  -> ~/.vimrc
 bash/bashrc.local.example  copied (not linked) to ~/.bashrc.local if missing
 java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
-bin/                       personal scripts, added to PATH (kubenv.sh, github-sync)
+bin/                       personal scripts, added to PATH (kubenv.sh, github-sync, backup...)
 packages/apt.txt           system packages
 desktop/                   optional GNOME setup: extensions, terminal profiles, wallpapers, dconf
 local-env/                 Docker Compose files for local services (versions in .env)

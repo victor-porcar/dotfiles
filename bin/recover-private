@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# Restores an archive made by backup-private into $HOME, overwriting existing files.
+# Files that exist here but not in the archive are left alone.
+set -uo pipefail
+
+MANIFEST=.private-backup-manifest
+
+fail() {
+  echo "$*" >&2
+  exit 1
+}
+
+# --occurrence=1 stops reading as soon as the manifest (first entry) is found
+read_manifest() {
+  tar -xzOf "$1" --occurrence=1 "$MANIFEST" 2>/dev/null
+}
+
+show_plan() {
+  local archive="$1" path
+  echo "Archive: $archive"
+  echo "These will be restored into $HOME, OVERWRITING what is already there:"
+  while read -r path; do
+    printf '  ~/%s%s\n' "$path" "$([[ -e "$HOME/$path" ]] && echo '   (exists, will be overwritten)')"
+  done
+  echo
+  echo "!! The archive is NOT ENCRYPTED; delete it from shared places once restored."
+}
+
+confirm() {
+  local answer
+  read -rp "Proceed? [y/N] " answer </dev/tty
+  [[ "$answer" =~ ^[yY]$ ]] || { echo "Cancelled"; exit 0; }
+}
+
+# Desktop launchers need the "trusted" mark again, it is not stored in the archive
+fix_after_restore() {
+  [[ -d "$HOME/.ssh" ]] && chmod 700 "$HOME/.ssh"
+  local launcher
+  for launcher in "$HOME"/Desktop/*.desktop; do
+    [[ -e "$launcher" ]] && gio set "$launcher" metadata::trusted true 2>/dev/null
+  done
+}
+
+main() {
+  [[ $# -eq 1 ]] || fail "Usage: recover-private <archive.tar.gz>"
+  [[ -f "$1" ]] || fail "Archive not found: $1"
+  local manifest
+  manifest="$(read_manifest "$1")" || fail "Not a backup-private archive: $1"
+  show_plan "$1" <<<"$manifest"
+  confirm
+  echo "Restoring, this may take several minutes..."
+  tar -xzpf "$1" --overwrite --exclude="$MANIFEST" -C "$HOME" || echo "!! tar reported problems (see messages above)" >&2
+  fix_after_restore
+  echo "Done. Open a new terminal to load ~/.bashrc.local."
+}
+
+main "$@"
