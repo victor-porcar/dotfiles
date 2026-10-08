@@ -170,7 +170,8 @@ kubenv.sh -n my-namespace my-env search:8080 svc/solr:8984:8983:my-infra
 ### Tools installed
 
 - **apt**: git, curl, wget, zip/unzip, build-essential, vim, tree, `jq`, `htop`,
-  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, bash-completion.
+  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, bash-completion, Docker (`docker.io` +
+  the `docker compose` plugin; your user is added to the `docker` group).
 - **SDKMAN**: JDK 21 (Temurin), Maven, Gradle.
 
 ### Templates
@@ -179,8 +180,8 @@ kubenv.sh -n my-namespace my-env search:8080 svc/solr:8984:8983:my-infra
 
 ### Local services (`local-env/`)
 
-Generic services for local development with Docker Compose. Not installed by
-`install.sh`: start them when needed.
+Generic services for local development with Docker Compose (Docker itself is installed
+by the `packages` step). Not started by `install.sh`: start them when needed.
 
 | Service         | What                                   | Ports                         |
 |-----------------|----------------------------------------|-------------------------------|
@@ -189,9 +190,9 @@ Generic services for local development with Docker Compose. Not installed by
 
 ```bash
 cd ~/dotfiles/local-env/solr
-docker-compose up -d       # start
-docker-compose down        # stop, keep data
-docker-compose down -v     # stop and delete data
+docker compose up -d       # start
+docker compose down        # stop, keep data
+docker compose down -v     # stop and delete data
 ```
 
 All at once: `startAllLocalEnv` and `stopAllLocalEnv` aliases (scripts in `local-env/`; data is kept).
@@ -199,7 +200,7 @@ All at once: `startAllLocalEnv` and `stopAllLocalEnv` aliases (scripts in `local
 To add a service, create its folder with a `compose.yaml` and add one line to each script.
 
 **Changing versions**: edit the `.env` file next to each `compose.yaml`, or override
-it for a single run: `SOLR_VERSION=9.9.0 docker-compose up -d`.
+it for a single run: `SOLR_VERSION=9.9.0 docker compose up -d`.
 
 ## Layout
 

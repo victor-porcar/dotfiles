@@ -16,3 +16,7 @@ htop
 ripgrep
 fd-find
 lsof
+
+# Containers (docker-compose-v2 provides the `docker compose` plugin)
+docker.io
+docker-compose-v2
