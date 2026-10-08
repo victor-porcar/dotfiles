@@ -152,6 +152,12 @@ kubenv.sh -n my-namespace my-env search:8080 svc/solr:8984:8983:my-infra
 - Tip: keep one small wrapper per environment next to its kubeconfigs (outside this
   repo), e.g. `exec kubenv.sh -n my-ns <kubeconfig> svc-a:10400:8080 svc-b:10401:8080`.
 
+**`github-sync`**: clones all your GitHub repos (public and private) into `~/personal`
+(or the folder you pass) and pulls the ones you already have. Repos with uncommitted
+changes or a diverged branch are only fetched, never touched. The dotfiles repo is updated
+in `~/dotfiles`. Needs the GitHub CLI (`gh`, installed by `packages`) logged in once:
+`gh auth login`.
+
 ### Git (`git/gitconfig`)
 
 - **Aliases**: `st`, `sw` (switch), `br`, `ci`, `amend` (add to last commit, keep
@@ -170,7 +176,7 @@ kubenv.sh -n my-namespace my-env search:8080 svc/solr:8984:8983:my-infra
 ### Tools installed
 
 - **apt**: git, curl, wget, zip/unzip, build-essential, vim, tree, `jq`, `htop`,
-  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, bash-completion, Docker (`docker.io` +
+  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, `gh` (GitHub CLI), bash-completion, Docker (`docker.io` +
   the `docker compose` plugin; your user is added to the `docker` group).
 - **SDKMAN**: JDK 21 (Temurin), Maven, Gradle.
 
@@ -216,7 +222,7 @@ vim/vimrc                  -> ~/.vimrc
 bash/bashrc.local.example  copied (not linked) to ~/.bashrc.local if missing
 java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
-bin/                       personal scripts, added to PATH (kubenv.sh)
+bin/                       personal scripts, added to PATH (kubenv.sh, github-sync)
 packages/apt.txt           system packages
 desktop/                   optional GNOME setup: extensions, terminal profiles, wallpapers, dconf
 local-env/                 Docker Compose files for local services (versions in .env)

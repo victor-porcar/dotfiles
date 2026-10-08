@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+set -uo pipefail
+
+USAGE="Usage: github-sync [target_dir]
+
+Clones every GitHub repo of the logged-in user (public and private) into target_dir
+(default: \$GITHUB_SYNC_DIR or ~/personal) and pulls the ones already cloned.
+Repos with local changes or a diverged branch are only fetched, never modified.
+The dotfiles repo is updated where it lives (\$DOTFILES_DIR) instead of cloned again.
+
+Needs the GitHub CLI logged in once: gh auth login"
+
+TARGET_DIR="${1:-${GITHUB_SYNC_DIR:-$HOME/personal}}"
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
+declare -A RESULTS=([cloned]=0 [updated]=0 [skipped]=0 [failed]=0)
+
+fail() {
+  echo "$*" >&2
+  exit 1
+}
+
+require_gh() {
+  command -v gh >/dev/null || fail "GitHub CLI not found: sudo apt install gh"$'\n\n'"$USAGE"
+  gh auth status >/dev/null 2>&1 || fail "Not logged in to GitHub. Run once: gh auth login"
+}
+
+# One "name ssh_url" line per repo owned by the logged-in user
+list_repos() {
+  gh repo list --limit 1000 --json name,sshUrl --jq '.[] | "\(.name) \(.sshUrl)"'
+}
+
+# github.com/user/repo, whatever the URL flavour (ssh or https, with or without .git)
+repo_id() {
+  local url="${1%.git}"
+  echo "${url#*github.com?}"
+}
+
+repo_path() {
+  local name="$1" url="$2" dotfiles_url
+  dotfiles_url="$(git -C "$DOTFILES_DIR" remote get-url origin 2>/dev/null)"
+  if [[ -n "$dotfiles_url" && "$(repo_id "$dotfiles_url")" == "$(repo_id "$url")" ]]; then
+    echo "$DOTFILES_DIR"
+  else
+    echo "$TARGET_DIR/$name"
+  fi
+}
+
+clone_repo() {
+  local url="$1" path="$2"
+  if git clone -q "$url" "$path"; then report cloned "$path"; else report failed "$path (clone)"; fi
+}
+
+update_repo() {
+  local path="$1"
+  if ! git -C "$path" fetch -q --all --prune; then report failed "$path (fetch)"; return; fi
+  if [[ -n "$(git -C "$path" status --porcelain --untracked-files=no)" ]]; then report skipped "$path (local changes)"; return; fi
+  if ! git -C "$path" rev-parse -q --verify '@{u}' >/dev/null; then report skipped "$path (no upstream)"; return; fi
+  if git -C "$path" merge -q --ff-only '@{u}' 2>/dev/null; then report updated "$path"; return; fi
+  report skipped "$path (diverged from remote)"
+}
+
+report() {
+  RESULTS[$1]=$((RESULTS[$1] + 1))
+  printf '  %-8s %s\n' "$1" "$2"
+}
+
+sync_repo() {
+  local name="$1" url="$2" path
+  path="$(repo_path "$name" "$url")"
+  if [[ -d "$path/.git" ]]; then update_repo "$path"; else clone_repo "$url" "$path"; fi
+}
+
+main() {
+  [[ "${1:-}" == -h || "${1:-}" == --help ]] && { echo "$USAGE"; exit 0; }
+  require_gh
+  mkdir -p "$TARGET_DIR"
+  local repos line
+  mapfile -t repos < <(list_repos)
+  for line in "${repos[@]}"; do sync_repo $line; done
+  echo "cloned: ${RESULTS[cloned]}  updated: ${RESULTS[updated]}  skipped: ${RESULTS[skipped]}  failed: ${RESULTS[failed]}"
+}
+
+main "$@"
