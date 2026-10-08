@@ -2,6 +2,6 @@
 Type=Application
 Name=Reset local-env
 Comment=Stop every service in dotfiles/local-env and DELETE its data (asks first)
-Exec=gnome-terminal --profile=Retro --title="Reset local-env" -- bash -ic "resetAllLocalEnv; read -rp 'Press Enter to close'"
+Exec=bash -ic "console-tab 'Reset local-env' resetAllLocalEnv"
 Icon=view-refresh
 Terminal=false

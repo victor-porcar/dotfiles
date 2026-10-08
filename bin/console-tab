@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# Runs a command as a tab of a single shared terminal window, so several launchers
+# (VPN, port-forwards, local-env...) don't each open their own window.
+#
+# The window is a tmux session named "console" shown in a Retro GNOME Terminal:
+#   - first launcher: opens the terminal with the session and its tab
+#   - next launchers: add a tab to that session, no new window
+#   - closing the terminal destroys the session (destroy-unattached), so every tab's
+#     command gets SIGHUP and stops, exactly like closing its own window used to
+set -uo pipefail
+
+SESSION=console
+
+usage() {
+  echo "Usage: console-tab <tab name> <command...>" >&2
+  exit 1
+}
+
+open_terminal() {
+  gnome-terminal --profile=Retro --title=Consoles -- "$@"
+}
+
+# Interactive bash so aliases work; the tab stays open so the output can be read
+tab_command() {
+  printf 'bash -ic %q' "$*; read -rp 'Press Enter to close this tab'"
+}
+
+new_session() {
+  open_terminal tmux new-session -s "$SESSION" -n "$1" "$2" \
+    \; set-option destroy-unattached on \; set-option automatic-rename off
+}
+
+new_tab() {
+  tmux new-window -t "=$SESSION:" -n "$1" "$2"
+  if [[ "$(tmux display-message -p -t "=$SESSION" '#{session_attached}')" == 0 ]]; then
+    open_terminal tmux attach-session -t "=$SESSION"
+  fi
+}
+
+main() {
+  [[ $# -ge 2 ]] || usage
+  local name="$1" command
+  shift
+  command="$(tab_command "$@")"
+  if tmux has-session -t "=$SESSION" 2>/dev/null; then new_tab "$name" "$command"; else new_session "$name" "$command"; fi
+}
+
+main "$@"

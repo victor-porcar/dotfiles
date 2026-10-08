@@ -65,8 +65,8 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 - Creates the GNOME Terminal profiles in `desktop/terminal-profiles/*.dconf` (updated in
   place if a profile with the same name exists; your default profile is kept).
   Currently: **Retro**, green on black like an 80s terminal (`gnome-terminal --profile=Retro`).
-- Puts the launchers in `desktop/launchers/` on the desktop: **Start / Stop / Reset local-env**,
-  each opening a Retro terminal with the output.
+- Puts the launchers in `desktop/launchers/` on the desktop: **Start / Stop / Reset local-env**.
+  They open as tabs of a single Retro "Consoles" window (see `console-tab`).
 - Sets the first image in `desktop/wallpapers/` as background (if any).
 - Loads GNOME settings from `desktop/dconf/*.conf`. The file name is the dconf path with
   dots. To save an extension's settings:
@@ -158,6 +158,12 @@ changes or a diverged branch are only fetched, never touched. The dotfiles repo 
 in `~/dotfiles`. Needs the GitHub CLI (`gh`, installed by `packages`) logged in once:
 `gh auth login`.
 
+**`console-tab <tab name> <command...>`**: runs a command as a tab of one shared terminal
+window (a tmux session shown in a Retro GNOME Terminal). The first call opens the window,
+the next ones add tabs to it. Closing the window stops every tab's command (VPN,
+port-forwards...). Used by the desktop launchers; works in your own launchers too:
+`Exec=bash -ic "console-tab 'My tab' my-command"`.
+
 **`backup-private <folder>`** / **`recover-private <archive>`**: back up and restore the
 private data that is not in this repo, so that a new machine with `install.sh` +
 `recover-private` ends up like the old one. Includes `~/work`, `~/personal`, `~/docs`,
@@ -166,6 +172,12 @@ private data that is not in this repo, so that a new machine with `install.sh` +
 (`target/`, `node_modules/`, `build/`, `.gradle/`). Both list what they will do and ask
 before proceeding. Restoring overwrites existing files. **The archive is not encrypted**:
 it holds SSH keys and credentials. Not included: Docker volumes (e.g. local-env data).
+
+### tmux (`tmux/tmux.conf`)
+
+Linked to `~/.config/tmux/tmux.conf`. Mouse on (click a tab to switch), tabs numbered from
+1, tabs with new output highlighted, green-on-black status bar matching the Retro profile.
+Shortcuts start with `Ctrl+b`: `n` / `p` next / previous tab, `&` close tab.
 
 ### Git (`git/gitconfig`)
 
@@ -185,7 +197,7 @@ it holds SSH keys and credentials. Not included: Docker volumes (e.g. local-env 
 ### Tools installed
 
 - **apt**: git, curl, wget, zip/unzip, build-essential, vim, tree, `jq`, `htop`,
-  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, `gh` (GitHub CLI), bash-completion, Docker (`docker.io` +
+  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, `gh` (GitHub CLI), `tmux`, bash-completion, Docker (`docker.io` +
   the `docker compose` plugin; your user is added to the `docker` group).
 - **SDKMAN**: JDK 21 (Temurin), Maven, Gradle.
 
@@ -228,6 +240,7 @@ bash/inputrc               -> ~/.inputrc (completion and history search)
 git/gitconfig              -> ~/.gitconfig
 git/ignore                 -> ~/.config/git/ignore (global gitignore)
 vim/vimrc                  -> ~/.vimrc
+tmux/tmux.conf             -> ~/.config/tmux/tmux.conf
 bash/bashrc.local.example  copied (not linked) to ~/.bashrc.local if missing
 java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install

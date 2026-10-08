@@ -2,6 +2,6 @@
 Type=Application
 Name=Start local-env
 Comment=Start every service in dotfiles/local-env (Redis, Solr...)
-Exec=gnome-terminal --profile=Retro --title="Start local-env" -- bash -ic "startAllLocalEnv; read -rp 'Press Enter to close'"
+Exec=bash -ic "console-tab 'Start local-env' startAllLocalEnv"
 Icon=media-playback-start
 Terminal=false

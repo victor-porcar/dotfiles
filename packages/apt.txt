@@ -17,6 +17,7 @@ ripgrep
 fd-find
 lsof
 gh
+tmux
 
 # Containers (docker-compose-v2 provides the `docker compose` plugin)
 docker.io
