@@ -3,7 +3,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for script in lib packages git github link java home desktop terminal-profiles chrome; do
+for script in lib packages snaps git github link java kubernetes home desktop terminal-profiles chrome; do
   source "$DOTFILES_DIR/scripts/$script.sh"
 done
 
@@ -18,6 +18,7 @@ Steps:
   github    Passwordless SSH access to GitHub (pauses to add the key on github.com)
   link      Symlink the dotfiles
   java      SDKMAN + JDK, Maven and Gradle
+  kubernetes kubectl and k9s (kubectx/kubens come with packages)
   home      Tidy home dirs, Documents -> ~/docs, create ~/personal, ~/tmp and ~/work
 
 Optional (not part of all):
@@ -31,6 +32,7 @@ install_all() {
   setup_github
   link_dotfiles
   install_java_toolchain
+  install_kubernetes_tools
   clean_home
   info "Done. Open a new terminal or run: source ~/.bashrc"
 }
@@ -43,6 +45,7 @@ main() {
     github)   setup_github ;;
     link)     link_dotfiles ;;
     java)     install_java_toolchain ;;
+    kubernetes) install_kubernetes_tools ;;
     home)     clean_home ;;
     desktop)  install_desktop ;;
     *)        usage ;;

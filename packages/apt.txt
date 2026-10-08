@@ -18,6 +18,8 @@ fd-find
 lsof
 gh
 tmux
+fzf
+kubectx
 
 # Containers (docker-compose-v2 provides the `docker compose` plugin)
 docker.io

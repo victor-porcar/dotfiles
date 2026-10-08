@@ -16,7 +16,7 @@ Then open a new terminal (or run `source ~/.bashrc`).
 The repo is cloned over HTTPS because a fresh machine has no SSH key yet. The `github`
 step sets up SSH access and then switches the remote to SSH, so you can push.
 
-You can run a single step: `./install.sh packages | git | github | link | java | home`.
+You can run a single step: `./install.sh packages | git | github | link | java | kubernetes | home`.
 The script is **idempotent**: running it several times breaks nothing.
 
 ## Moving to a new machine (a "copy" of the current one)
@@ -89,6 +89,7 @@ credentials**. Whoever has the file can get into all of that:
 | `github`   | Passwordless SSH access to GitHub: verifies github.com's fingerprint, creates an SSH key if missing, **pauses** while you add it on github.com (opens the page for you), checks the login and switches this repo's remote to SSH |
 | `link`     | Creates symlinks from `$HOME` to the files in this repo             |
 | `java`     | Installs SDKMAN and the candidates in `java/sdkman-candidates.txt`  |
+| `kubernetes` | Installs `kubectl` (snap) and `k9s` (official `.deb` from GitHub; the k9s snap is outdated), or updates them |
 | `home`     | Removes `~/Music`, `~/Videos`, `~/Templates` and `~/Public` (or their Spanish names) if empty and stops the desktop from recreating them; points the Documents folder to `~/docs`; creates `~/personal`, `~/tmp` (auto-cleaned after 30 days) and the `~/work` structure |
 
 If a file already exists when linking, it is moved to `~/.dotfiles-backup/<date>/`.
@@ -152,6 +153,8 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 | `gl`       | `git lg` (graph log)                         |
 | `reload`   | reload `~/.bashrc`                           |
 | `dotfiles` | `cd` into this repo                          |
+| `fd`       | `fdfind` (Ubuntu's name for fd)              |
+| `k`        | `kubectl`, with completion                   |
 | `startAllLocalEnv` / `stopAllLocalEnv` | start / stop every service in `local-env/` |
 | `resetAllLocalEnv` | stop every service in `local-env/` and delete its data (asks first) |
 
@@ -236,6 +239,24 @@ private data that is not in this repo, so that a new machine with `install.sh` +
 before proceeding. Restoring overwrites existing files. **The archive is not encrypted**:
 it holds SSH keys and credentials. Not included: Docker volumes (e.g. local-env data).
 
+### Kubernetes (`bash/kubernetes.sh`)
+
+- `kubectl` and its alias `k` with Tab completion (pods, namespaces, resources...). The
+  completion script is cached in `~/.cache/bash` and regenerated weekly, so new
+  terminals stay fast.
+- `k9s`: terminal UI to browse pods, logs and events and open shells in containers.
+- `kubectx` / `kubens`: switch cluster context / namespace.
+
+### fzf (`bash/fzf.sh`)
+
+Fuzzy finder: type any fragments, in any order.
+
+| Keys     | Does                                                              |
+|----------|-------------------------------------------------------------------|
+| `Ctrl+R` | search the command history                                        |
+| `Ctrl+T` | insert a file path (uses `fd`, so it skips what `.gitignore` ignores) |
+| `Alt+C`  | `cd` into a folder                                                |
+
 ### tmux (`tmux/tmux.conf`)
 
 Linked to `~/.config/tmux/tmux.conf`. Mouse on (click a tab to switch), tabs numbered from
@@ -260,9 +281,10 @@ Shortcuts start with `Ctrl+b`: `n` / `p` next / previous tab, `&` close tab.
 ### Tools installed
 
 - **apt**: git, curl, wget, zip/unzip, build-essential, vim, tree, `jq`, `htop`,
-  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, `gh` (GitHub CLI), `tmux`, bash-completion, Docker (`docker.io` +
+  `ripgrep` (`rg`), `fd-find` (`fdfind`), `lsof`, `gh` (GitHub CLI), `tmux`, `fzf`, `kubectx`, bash-completion, Docker (`docker.io` +
   the `docker compose` plugin; your user is added to the `docker` group).
 - **SDKMAN**: JDK 21 (Temurin), Maven, Gradle.
+- **Kubernetes**: `kubectl` (snap), `k9s` (GitHub `.deb`).
 
 ### Templates
 

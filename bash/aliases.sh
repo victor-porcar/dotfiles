@@ -2,6 +2,7 @@ alias ls='ls --color=auto'
 alias ll='ls -lh'
 alias la='ls -lhA'
 alias grep='grep --color=auto'
+alias fd='fdfind'
 
 alias ..='cd ..'
 alias ...='cd ../..'
