@@ -4,13 +4,13 @@ set -uo pipefail
 USAGE="Usage: github-sync [target_dir]
 
 Clones every GitHub repo of the logged-in user (public and private) into target_dir
-(default: \$GITHUB_SYNC_DIR or ~/personal) and pulls the ones already cloned.
+(default: \$GITHUB_SYNC_DIR or ~/personal/github-<user>) and pulls the ones already cloned.
 Repos with local changes or a diverged branch are only fetched, never modified.
 The dotfiles repo is updated where it lives (\$DOTFILES_DIR) instead of cloned again.
 
 Needs the GitHub CLI logged in once: gh auth login"
 
-TARGET_DIR="${1:-${GITHUB_SYNC_DIR:-$HOME/personal}}"
+TARGET_DIR=""
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/dotfiles}"
 declare -A RESULTS=([cloned]=0 [updated]=0 [skipped]=0 [failed]=0)
 
@@ -73,6 +73,7 @@ sync_repo() {
 main() {
   [[ "${1:-}" == -h || "${1:-}" == --help ]] && { echo "$USAGE"; exit 0; }
   require_gh
+  TARGET_DIR="${1:-${GITHUB_SYNC_DIR:-$HOME/personal/github-$(gh api user --jq .login)}}"
   mkdir -p "$TARGET_DIR"
   local repos line
   mapfile -t repos < <(list_repos)

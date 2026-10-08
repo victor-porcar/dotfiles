@@ -38,7 +38,7 @@ The `home` step creates this structure (only the folders that don't exist yet):
 
 ```
 ~/docs/               personal documents (the desktop's Documents folder)
-~/personal/           personal code (my own repos)
+~/personal/           personal code (github-sync clones my repos into github-<user>/)
 ~/work/
 ├── access/           how I get in: VPN, certificates...
 ├── archive/          old stuff kept just in case
@@ -152,8 +152,8 @@ kubenv.sh -n my-namespace my-env search:8080 svc/solr:8984:8983:my-infra
 - Tip: keep one small wrapper per environment next to its kubeconfigs (outside this
   repo), e.g. `exec kubenv.sh -n my-ns <kubeconfig> svc-a:10400:8080 svc-b:10401:8080`.
 
-**`github-sync`**: clones all your GitHub repos (public and private) into `~/personal`
-(or the folder you pass) and pulls the ones you already have. Repos with uncommitted
+**`github-sync`**: clones all your GitHub repos (public and private) into
+`~/personal/github-<your-user>` (or the folder you pass) and pulls the ones you already have. Repos with uncommitted
 changes or a diverged branch are only fetched, never touched. The dotfiles repo is updated
 in `~/dotfiles`. Needs the GitHub CLI (`gh`, installed by `packages`) logged in once:
 `gh auth login`.
