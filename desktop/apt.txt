@@ -5,3 +5,6 @@ lm-sensors
 # The launchers and the Retro profile need GNOME Terminal, which is no longer
 # the default terminal since Ubuntu 25.10 (replaced by Ptyxis)
 gnome-terminal
+
+# Desktop apps from Ubuntu's repos
+gnome-boxes

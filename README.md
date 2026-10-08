@@ -115,7 +115,8 @@ The `home` step creates this structure (only the folders that don't exist yet):
 
 Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME session.
 
-- Installs the apt dependencies in `desktop/apt.txt`.
+- Installs the apt packages in `desktop/apt.txt`: extension dependencies, GNOME Terminal and
+  GNOME Boxes (virtual machines with KVM, handy to test these dotfiles from scratch).
 - Installs the desktop apps listed in `desktop/snaps.txt` (IntelliJ IDEA Community, Postman,
   Freelens) in their latest stable version; if already installed, updates them right away.
 - Installs Google Chrome from Google's official `.deb` (which also adds Google's apt
