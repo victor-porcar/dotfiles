@@ -29,7 +29,7 @@ github_user() {
 }
 
 trust_github_host() {
-  if ssh-keygen -F github.com >/dev/null; then return 0; fi
+  if ssh-keygen -F github.com >/dev/null 2>&1; then return 0; fi
   local host_key
   host_key="$(ssh-keyscan -t ed25519 github.com 2>/dev/null)"
   if ! has_github_fingerprint "$host_key"; then

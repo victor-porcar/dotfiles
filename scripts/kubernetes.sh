@@ -13,7 +13,7 @@ install_k9s() {
   local latest installed
   latest="$(curl -fsSL -o /dev/null -w '%{url_effective}' "$K9S_RELEASES/latest")"
   latest="${latest##*/v}"
-  installed="$(dpkg-query -W -f='${Version}' k9s 2>/dev/null)"
+  installed="$(dpkg-query -W -f='${Version}' k9s 2>/dev/null || true)"
   if [[ -n "$installed" && "$installed" == "$latest" ]]; then ok "k9s $installed: up to date"; return; fi
   install_k9s_deb && ok "k9s: installed ${latest:-latest}" || warn "k9s: installation failed"
 }

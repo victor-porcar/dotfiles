@@ -15,7 +15,9 @@ install_apt_list() {
 # Lets docker run without sudo. Note: the docker group is root-equivalent, which is
 # the usual trade-off on a personal development machine.
 join_docker_group() {
-  if id -nG "$USER" | tr ' ' '\n' | grep -qx docker; then ok "$USER is in the docker group"; return; fi
-  sudo usermod -aG docker "$USER"
-  warn "$USER added to the docker group: log out and back in for it to take effect"
+  local user
+  user="$(id -un)"
+  if id -nG "$user" | tr ' ' '\n' | grep -qx docker; then ok "$user is in the docker group"; return; fi
+  sudo usermod -aG docker "$user"
+  warn "$user added to the docker group: log out and back in for it to take effect"
 }

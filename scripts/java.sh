@@ -19,7 +19,19 @@ install_sdk_candidates() {
   source "$SDKMAN_DIR/bin/sdkman-init.sh"
   sdkman_auto_answer=true
   for line in "${candidates[@]}"; do
-    sdk install $line || warn "failed: sdk install $line"
+    install_sdk_candidate $line
   done
   set -u
+}
+
+# sdk exits 0 even when a download fails (e.g. a server answering 429 "too many
+# requests" makes it report a corrupt archive), so success is checked on disk
+install_sdk_candidate() {
+  local candidate="$1"
+  sdk install "$@" || true
+  [[ -d "$SDKMAN_DIR/candidates/$candidate/current" ]] && return
+  warn "$candidate: download failed, retrying in 10 s"
+  sleep 10
+  sdk install "$@" || true
+  [[ -d "$SDKMAN_DIR/candidates/$candidate/current" ]] || warn "$candidate not installed: run ./install.sh java again later"
 }
