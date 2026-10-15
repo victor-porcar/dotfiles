@@ -2,6 +2,6 @@
 Type=Application
 Name=Stop local-env
 Comment=Stop every service in dotfiles/local-env, keeping its data
-Exec=bash -ic "console-tab 'Stop local-env' stopAllLocalEnv"
+Exec=bash -ic "console-tab 'local-env' stopAllLocalEnv"
 Icon=media-playback-stop
 Terminal=false
