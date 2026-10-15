@@ -226,8 +226,9 @@ in `~/dotfiles`. Needs the GitHub CLI (`gh`, installed by `packages`) logged in 
 
 **`console-tab <tab name> <command...>`**: runs a command as a tab of one shared terminal
 window (a tmux session shown in a Retro GNOME Terminal). The first call opens the window,
-the next ones add tabs to it. Closing the window stops every tab's command (VPN,
-port-forwards...). Used by the desktop launchers; works in your own launchers too:
+the next ones add tabs to it. A tab name that already exists is reused: its command is
+stopped and the new one runs there (handy for start/stop launchers sharing one tab).
+Closing the window stops every tab's command (VPN, port-forwards...). Used by the desktop launchers; works in your own launchers too:
 `Exec=bash -ic "console-tab 'My tab' my-command"`.
 
 **`backup-private <folder>`** / **`recover-private <archive>`**: back up and restore the

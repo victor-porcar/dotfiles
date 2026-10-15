@@ -5,6 +5,8 @@
 # The window is a tmux session named "console" shown in a Retro GNOME Terminal:
 #   - first launcher: opens the terminal with the session and its tab
 #   - next launchers: add a tab to that session, no new window
+#   - a tab name that already exists reuses that tab: its command is stopped (SIGHUP)
+#     and the new one runs there, so e.g. "VPN" and "Kill VPN" share one tab
 #   - closing the terminal destroys the session (destroy-unattached), so every tab's
 #     command gets SIGHUP and stops, exactly like closing its own window used to
 set -uo pipefail
@@ -30,8 +32,23 @@ new_session() {
     \; set-option destroy-unattached on \; set-option automatic-rename off
 }
 
-new_tab() {
-  tmux new-window -t "=$SESSION:" -n "$1" "$2"
+# Prints the index of the tab with exactly this name, if there is one
+tab_index() {
+  tmux list-windows -t "=$SESSION" -F '#{window_index} #{window_name}' \
+    | awk -v name="$1" '{ index_ = $1; $1 = ""; if (substr($0, 2) == name) { print index_; exit } }'
+}
+
+run_in_tab() {
+  local name="$1" command="$2" index
+  index="$(tab_index "$name")"
+  if [[ -n "$index" ]]; then
+    tmux respawn-window -k -t "=$SESSION:$index" "$command" \; select-window -t "=$SESSION:$index"
+  else
+    tmux new-window -t "=$SESSION:" -n "$name" "$command"
+  fi
+}
+
+attach_if_needed() {
   if [[ "$(tmux display-message -p -t "=$SESSION" '#{session_attached}')" == 0 ]]; then
     open_terminal tmux attach-session -t "=$SESSION"
   fi
@@ -42,7 +59,9 @@ main() {
   local name="$1" command
   shift
   command="$(tab_command "$@")"
-  if tmux has-session -t "=$SESSION" 2>/dev/null; then new_tab "$name" "$command"; else new_session "$name" "$command"; fi
+  if ! tmux has-session -t "=$SESSION" 2>/dev/null; then new_session "$name" "$command"; return; fi
+  run_in_tab "$name" "$command"
+  attach_if_needed
 }
 
 main "$@"
