@@ -7,19 +7,8 @@ install_desktop() {
   install_gnome_extensions
   set_wallpaper
   load_dconf_settings
-  install_terminal_profiles
+  install_retro_console
   install_launchers
-}
-
-# Copied (not linked) and marked trusted, otherwise GNOME won't let them run
-install_launchers() {
-  local desktop file
-  desktop="$(xdg-user-dir DESKTOP)"
-  for file in "$DOTFILES_DIR"/desktop/launchers/*.desktop; do
-    install -m 755 "$file" "$desktop/"
-    gio set "$desktop/$(basename "$file")" metadata::trusted true
-    ok "launcher: $(basename "$file" .desktop)"
-  done
 }
 
 install_gnome_extensions() {

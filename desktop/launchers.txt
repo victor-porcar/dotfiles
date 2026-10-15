@@ -1,0 +1,4 @@
+# Desktop launchers created with retro-console: name | tab | icon | command
+# Launchers with the same tab share it (start/stop of the same thing).
+Start local-env | local-env | media-playback-start | startAllLocalEnv
+Stop local-env  | local-env | media-playback-stop  | stopAllLocalEnv

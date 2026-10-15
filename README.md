@@ -126,12 +126,12 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 - Installs the GNOME extensions listed in `desktop/gnome-extensions.txt` (UUIDs from
   extensions.gnome.org). GNOME downloads the version matching itself and asks for
   confirmation. Currently: [Vitals](https://github.com/corecoding/Vitals).
-- Creates the GNOME Terminal profiles in `desktop/terminal-profiles/*.dconf` (updated in
-  place if a profile with the same name exists; your default profile is kept).
-  Currently: **Retro**, green on black like an 80s terminal (`gnome-terminal --profile=Retro`).
-- Puts the launchers in `desktop/launchers/` on the desktop: **Start / Stop local-env** (reset stays a
-  command, `resetAllLocalEnv`, since it deletes data).
-  They open as tabs of a single Retro "Consoles" window (see `console-tab`).
+- Installs (or updates) [retro-console](https://github.com/victor-porcar/retro-console):
+  desktop launchers that open as tabs of one green-on-black terminal window, grouped by tab.
+- Creates the launchers listed in `desktop/launchers.txt` (`name | tab | icon | command`):
+  **Start / Stop local-env**, sharing the `local-env` tab. Reset stays a command,
+  `resetAllLocalEnv`, since it deletes data. Add your own private launchers with
+  `retro-console add` (they live in `~/Desktop`, covered by `backup-private`).
 - Sets the first image in `desktop/wallpapers/` as background (if any).
 - Loads GNOME settings from `desktop/dconf/*.conf`. The file name is the dconf path with
   dots. To save an extension's settings:
@@ -225,13 +225,6 @@ changes or a diverged branch are only fetched, never touched. The dotfiles repo 
 in `~/dotfiles`. Needs the GitHub CLI (`gh`, installed by `packages`) logged in once:
 `gh auth login`.
 
-**`console-tab <tab name> <command...>`**: runs a command as a tab of one shared terminal
-window (a tmux session shown in a Retro GNOME Terminal). The first call opens the window,
-the next ones add tabs to it. A tab name that already exists is reused: its command is
-stopped and the new one runs there (handy for start/stop launchers sharing one tab).
-Closing the window stops every tab's command (VPN, port-forwards...). Used by the desktop launchers; works in your own launchers too:
-`Exec=bash -ic "console-tab 'My tab' my-command"`.
-
 **`backup-private <folder>`** / **`recover-private <archive>`**: back up and restore the
 private data that is not in this repo, so that a new machine with `install.sh` +
 `recover-private` ends up like the old one. Includes `~/work`, `~/personal`, `~/docs`,
@@ -262,7 +255,7 @@ Fuzzy finder: type any fragments, in any order.
 ### tmux (`tmux/tmux.conf`)
 
 Linked to `~/.config/tmux/tmux.conf`. Mouse on (click a tab to switch), tabs numbered from
-1, tabs with new output highlighted, green-on-black status bar matching the Retro profile.
+1, tabs with new output highlighted, green-on-black status bar.
 Shortcuts start with `Ctrl+b`: `n` / `p` next / previous tab, `&` close tab.
 
 ### Git (`git/gitconfig`)
@@ -334,7 +327,7 @@ java/maven/settings.xml    copied (not linked) to ~/.m2/settings.xml if missing
 java/sdkman-candidates.txt JDK, Maven, Gradle to install
 bin/                       personal scripts, added to PATH (kubenv.sh, github-sync, backup...)
 packages/apt.txt           system packages
-desktop/                   optional GNOME setup: extensions, terminal profiles, wallpapers, dconf
+desktop/                   optional GNOME setup: apps, extensions, launchers, wallpapers, dconf
 local-env/                 Docker Compose files for local services (versions in .env)
 ```
 

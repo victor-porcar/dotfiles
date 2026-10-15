@@ -3,7 +3,7 @@ set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-for script in lib packages snaps git github link java kubernetes home desktop terminal-profiles chrome; do
+for script in lib packages snaps git github link java kubernetes home desktop retro-console chrome; do
   source "$DOTFILES_DIR/scripts/$script.sh"
 done
 
@@ -22,7 +22,7 @@ Steps:
   home      Tidy home dirs, Documents -> ~/docs, create ~/personal, ~/tmp and ~/work
 
 Optional (not part of all):
-  desktop   GNOME extensions, terminal profiles, wallpaper and dconf settings
+  desktop   Apps, GNOME extensions, retro-console launchers, wallpaper, dconf
 EOF
 }
 

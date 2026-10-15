@@ -10,6 +10,12 @@ read_list() {
   grep -vE '^[[:space:]]*(#|$)' "$DOTFILES_DIR/$1"
 }
 
+trim() {
+  local text="$1"
+  text="${text#"${text%%[![:space:]]*}"}"
+  echo "${text%"${text##*[![:space:]]}"}"
+}
+
 ask() {
   local question="$1" default="$2" answer
   read -rp "  $question [$default]: " answer </dev/tty

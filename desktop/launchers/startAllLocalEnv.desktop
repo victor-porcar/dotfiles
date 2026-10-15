@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Start local-env
-Comment=Start every service in dotfiles/local-env (Redis, Solr...)
-Exec=bash -ic "console-tab 'local-env' startAllLocalEnv"
-Icon=media-playback-start
-Terminal=false
