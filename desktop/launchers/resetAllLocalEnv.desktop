@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Reset local-env
-Comment=Stop every service in dotfiles/local-env and DELETE its data (asks first)
-Exec=bash -ic "console-tab 'local-env' resetAllLocalEnv"
-Icon=view-refresh
-Terminal=false
