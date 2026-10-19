@@ -132,6 +132,8 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
   **Start / Stop local-env**, sharing the `local-env` tab. Reset stays a command,
   `resetAllLocalEnv`, since it deletes data. Add your own private launchers with
   `retro-console add` (they live in `~/Desktop`, covered by `backup-private`).
+- Puts a plain **Terminal** launcher on the desktop: the system's own (Ptyxis on Ubuntu 25.10+,
+  GNOME Terminal before), with your normal profile.
 - Sets the first image in `desktop/wallpapers/` as background (if any).
 - Loads GNOME settings from `desktop/dconf/*.conf`. The file name is the dconf path with
   dots. To save an extension's settings:

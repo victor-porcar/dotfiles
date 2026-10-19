@@ -9,6 +9,28 @@ install_desktop() {
   load_dconf_settings
   install_retro_console
   install_launchers
+  install_terminal_launcher
+}
+
+# The system's own terminal launcher: Ptyxis (default since Ubuntu 25.10) if
+# installed, GNOME Terminal otherwise
+install_terminal_launcher() {
+  local app
+  for app in org.gnome.Ptyxis org.gnome.Terminal; do
+    [[ -f "/usr/share/applications/$app.desktop" ]] || continue
+    copy_to_desktop "/usr/share/applications/$app.desktop" terminal.desktop
+    ok "launcher: Terminal ($app)"
+    return
+  done
+  warn "no terminal launcher found (Ptyxis or GNOME Terminal)"
+}
+
+# Desktop launchers must be executable and marked trusted, or GNOME won't run them
+copy_to_desktop() {
+  local target
+  target="$(xdg-user-dir DESKTOP)/$2"
+  install -m 755 "$1" "$target"
+  gio set "$target" metadata::trusted true
 }
 
 install_gnome_extensions() {
