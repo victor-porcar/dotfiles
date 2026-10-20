@@ -8,3 +8,4 @@ gnome-terminal
 
 # Desktop apps from Ubuntu's repos
 gnome-boxes
+openmsx

@@ -7,9 +7,22 @@ install_desktop() {
   install_gnome_extensions
   set_wallpaper
   load_dconf_settings
+  install_desktop_launchers
+}
+
+install_desktop_launchers() {
   install_retro_console
   install_launchers
   install_terminal_launcher
+  install_openmsx_launcher
+}
+
+# openMSX (MSX emulator): the .deb ships its own launcher, just pin it to the desktop
+install_openmsx_launcher() {
+  local desktop_file=/usr/share/applications/openmsx.desktop
+  if [[ ! -f "$desktop_file" ]]; then warn "openMSX desktop file not found"; return; fi
+  copy_to_desktop "$desktop_file" openmsx.desktop
+  ok "launcher: openMSX"
 }
 
 # The system's own terminal launcher: Ptyxis (default since Ubuntu 25.10) if

@@ -134,6 +134,8 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
   `retro-console add` (they live in `~/Desktop`, covered by `backup-private`).
 - Puts a plain **Terminal** launcher on the desktop: the system's own (Ptyxis on Ubuntu 25.10+,
   GNOME Terminal before), with your normal profile.
+- Installs **openMSX** (MSX emulator, from `desktop/apt.txt`) with its free C-BIOS, no
+  copyrighted ROMs needed, and puts its launcher on the desktop.
 - Sets the first image in `desktop/wallpapers/` as background (if any).
 - Loads GNOME settings from `desktop/dconf/*.conf`. The file name is the dconf path with
   dots. To save an extension's settings:
