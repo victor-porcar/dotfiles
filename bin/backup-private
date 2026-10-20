@@ -5,7 +5,7 @@
 set -uo pipefail
 
 PRIVATE_PATHS=(
-  work personal docs Desktop Pictures
+  work personal docs Desktop Pictures MSX
   .ssh .gnupg .kube .aws .config/gh
   .bashrc.local .gitconfig.local .m2/settings.xml
 )

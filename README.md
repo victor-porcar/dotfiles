@@ -232,11 +232,15 @@ in `~/dotfiles`. Needs the GitHub CLI (`gh`, installed by `packages`) logged in 
 **`backup-private <folder>`** / **`recover-private <archive>`**: back up and restore the
 private data that is not in this repo, so that a new machine with `install.sh` +
 `recover-private` ends up like the old one. Includes `~/work`, `~/personal`, `~/docs`,
-`~/Desktop`, `~/Pictures`, `~/.ssh`, `~/.gnupg`, `~/.kube`, `~/.aws`, `~/.config/gh`,
+`~/Desktop`, `~/Pictures`, `~/MSX`, `~/.ssh`, `~/.gnupg`, `~/.kube`, `~/.aws`, `~/.config/gh`,
 `~/.bashrc.local`, `~/.gitconfig.local` and `~/.m2/settings.xml`, skipping build output
 (`target/`, `node_modules/`, `build/`, `.gradle/`). Both list what they will do and ask
 before proceeding. Restoring overwrites existing files. **The archive is not encrypted**:
 it holds SSH keys and credentials. Not included: Docker volumes (e.g. local-env data).
+
+`~/MSX` holds the Sony HB-F9S system ROM dumps (copyrighted, so they can't go in the
+git repo itself, which is public). After `recover-private`, copy them into
+`~/.openMSX/share/systemroms/` for openMSX to find them again.
 
 ### Kubernetes (`bash/kubernetes.sh`)
 
