@@ -15,6 +15,7 @@ install_desktop_launchers() {
   install_launchers
   install_terminal_launcher
   install_openmsx_launcher
+  install_redisinsight_launcher
 }
 
 # openMSX (MSX emulator): the .deb ships its own launcher, just pin it to the desktop
@@ -23,6 +24,14 @@ install_openmsx_launcher() {
   if [[ ! -f "$desktop_file" ]]; then warn "openMSX desktop file not found"; return; fi
   copy_to_desktop "$desktop_file" openmsx.desktop
   ok "launcher: openMSX"
+}
+
+# RedisInsight: the snap ships its own launcher, just pin it to the desktop
+install_redisinsight_launcher() {
+  local desktop_file=/var/lib/snapd/desktop/applications/redisinsight_redisinsight.desktop
+  if [[ ! -f "$desktop_file" ]]; then warn "RedisInsight desktop file not found"; return; fi
+  copy_to_desktop "$desktop_file" redisinsight.desktop
+  ok "launcher: RedisInsight"
 }
 
 # The system's own terminal launcher: Ptyxis (default since Ubuntu 25.10) if

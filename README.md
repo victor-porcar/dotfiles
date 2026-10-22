@@ -120,7 +120,8 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
 - Installs the apt packages in `desktop/apt.txt`: extension dependencies, GNOME Terminal and
   GNOME Boxes (virtual machines with KVM, handy to test these dotfiles from scratch).
 - Installs the desktop apps listed in `desktop/snaps.txt` (IntelliJ IDEA Community, Postman,
-  Freelens) in their latest stable version; if already installed, updates them right away.
+  Freelens, RedisInsight) in their latest stable version; if already installed, updates them
+  right away.
 - Installs Google Chrome from Google's official `.deb` (which also adds Google's apt
   repository, so it's updated with the system), or upgrades it if already installed.
 - Installs the GNOME extensions listed in `desktop/gnome-extensions.txt` (UUIDs from
@@ -136,6 +137,7 @@ Not part of `all`, so servers and headless VMs stay clean. Requires a GNOME sess
   GNOME Terminal before), with your normal profile.
 - Installs **openMSX** (MSX emulator, from `desktop/apt.txt`) with its free C-BIOS, no
   copyrighted ROMs needed, and puts its launcher on the desktop.
+- Puts the **RedisInsight** launcher (from the snap) on the desktop.
 - Sets the first image in `desktop/wallpapers/` as background (if any).
 - Loads GNOME settings from `desktop/dconf/*.conf`. The file name is the dconf path with
   dots. To save an extension's settings:
